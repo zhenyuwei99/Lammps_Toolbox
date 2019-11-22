@@ -29,7 +29,7 @@ E_kine                      =   zeros(varargin{1}.num_dims,varargin{1}.num_steps
 for dim = 1 : varargin{1}.num_dims
     E_kine(dim,:)                      =   sum(squeeze(varargin{1}.vel(:,dim,:)).^2);
 end
-df
+
 E_kine                      =   E_kine .* 0.5 .* varargin{2};
 
 %% Calculating Temp
