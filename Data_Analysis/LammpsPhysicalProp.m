@@ -33,7 +33,7 @@ end
 E_kine                      =   E_kine .* 0.5 .* varargin{2};
 
 %% Calculating Temp
-ss
+
 temp                        =   zeros(varargin{1}.num_dims,varargin{1}.num_steps_sim);
 
 for dim = 1 : varargin{1}.num_dims
