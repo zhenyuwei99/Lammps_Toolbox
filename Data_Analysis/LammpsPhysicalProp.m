@@ -8,7 +8,7 @@ function [varargout]        =   LammpsPhysicalProp(varargin)
 %
 % Temp:
 % E_kine
-% E_pot
+
 
 %% Handling PBC issues
 
