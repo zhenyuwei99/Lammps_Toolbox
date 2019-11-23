@@ -47,7 +47,7 @@ LammpsPBC function is used to handle Periodic Boundary Condition (PBC) issues. C
 LammpsMSD function is used to calculate Meas Square Displacement (MSD). 
 
 ### LammpsDiffusion
-
+s
 LammpsDiffusion function is used to calculate diffusion coefficients
 
 ### LammpsRDF
