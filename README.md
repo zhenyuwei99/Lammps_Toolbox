@@ -40,7 +40,8 @@ Thanks  Author :
 
 ## Data_Analysis
 
-![image](https://github.com/zhenyuwei99/Lammps_Toolbox/raw/master/Images/README/Github_Data_Analysis.png)
+<img src="https://github.com/zhenyuwei99/Lammps_Toolbox/raw/master/Images/README/Github_Data_Analysis.png" width = "300" height = "200" alt="Data_Analysis Flowchart" align=center />
+
 
 ### LammpsReadDump(dump_name,dump_prop,dump_col,t_sim)
 
