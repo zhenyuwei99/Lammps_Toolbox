@@ -41,7 +41,7 @@ Thanks  Author :
 ## Data_Analysis
 
 <div  align="center">   
-<img src="https://github.com/zhenyuwei99/Lammps_Toolbox/raw/master/Images/README/Github_Data_Analysis.png" width = "400" height = "350" alt="Data_Analysis Flowchart" align=center />
+<img src="https://github.com/zhenyuwei99/Lammps_Toolbox/raw/master/Images/README/Github_Data_Analysis.png" width = "400" height = "320" alt="Data_Analysis Flowchart" align=center />
 </div>   
 
 ### LammpsReadDump(dump_name,dump_prop,dump_col,t_sim)
@@ -85,7 +85,7 @@ LammpsRDF function is used to calculate Radial Distribution Function (RDF).
 ## Str_Generation
 
 <div  align="center">   
-<img src="https://github.com/zhenyuwei99/Lammps_Toolbox/raw/master/Images/README/Github_Str_Generation(1).png" width = "400" height = "500" alt="Data_Analysis Flowchart" align=center />
+<img src="https://github.com/zhenyuwei99/Lammps_Toolbox/raw/master/Images/README/Github_Str_Generation.png" width = "400" height = "500" alt="Data_Analysis Flowchart" align=center />
 </div>   
 
 ### LammpsStrGenerate(structure,num_cell,lattice_const,atom_type,atom_charge)
