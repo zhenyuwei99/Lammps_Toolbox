@@ -1,3 +1,21 @@
+# Installation
+
+Open a new terminal and move to the folder you want to download this code, conducting:
+
+```bash
+git clone https://github.com/zhenyuwei99/Lammps_Toolbox.git
+sudo matlab
+```
+
+In Matlab:
+
+```matlab
+pathtool
+```
+Using adding with subfolder to add all pathes of Lammps_Tool folders.
+
+Now you can use all of functions.
+
 # Lammps_Toolbox
 Matlab functions which can analysis LAMMPS data and generate LAMMPS data file.
 
