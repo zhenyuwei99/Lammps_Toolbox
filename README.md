@@ -52,6 +52,4 @@ LammpsDiffusion function is used to calculate diffusion coefficients
 
 alpha is ratio of simulation time to maximum MSD interval. 
 
-$T_{MSD} = \frac{1}{\alpha} T_{sim}$
-
 ### LammpsRDF
