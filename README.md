@@ -20,7 +20,7 @@ Thanks  Author :
 
 
 
-### LammpsReadDump
+### LammpsReadDump(dump_name,dump_prop,dump_col,t_sim)
 
 LammpsReadDump function is the core function in Data_Analysis module. A struture containg all information in dump file will be generated and used in the other function for further analysis. In other words, this function should be runed before any other utilization of other functions.
 
@@ -48,5 +48,6 @@ LammpsMSD function is used to calculate Meas Square Displacement (MSD).
 
 ### LammpsDiffusion
 
+LammpsDiffusion function is used to calculate diffusion coefficients
+
 ### LammpsRDF
-cd ,
