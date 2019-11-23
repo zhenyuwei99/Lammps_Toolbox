@@ -17,26 +17,36 @@ Thanks  Author :
 >Purdue University, West Lafayette, IN - 47907, USA.
 
 ## Data_Analysis
-```flow
-st=>start: Start:>https://www.zybuluo.com
-io=>inputoutput: verification
-op=>operation: Your Operation
-cond=>condition: Yes or No?
-sub=>subroutine: Your Subroutine
-e=>end
 
-st->io->op->cond
-cond(yes)->e
-cond(no)->sub->io
-```
 
 
 ### LammpsReadDump
 
+LammpsReadDump function is the core function in Data_Analysis module. A struture containg all information in dump file will be generated and used in the other function for further analysis. In other words, this function should be runed before any other utilization of other functions.
+
+Example 
+```matlab
+dump_name   =   'example.dump';
+dump_prop   =   ['id type coord vel'];
+dump_col    =   [1 2 3 6];
+t_sim       =   5;                      % Unit: time unit;
+
+data        =   LammpsReadDump(dump_name,dump_prop,dump_col,t_sim);
+```
+
+Notice: martic 'coord' should be contained in output struture variable. Or the name of coordinate data in dump_prop should be 'coord' (saying annotation in LammpsReadDump.m for further information)
+
 ### LammpsPBC
 
+LammpsPBC function is used to handle Periodic Boundary Condition (PBC) issues. Coordinate file will be unwarped if PBC is used in MD simulation;
+
+
+
 ### LammpsMSD
+
+LammpsMSD function is used to calculate Meas Square Displacement (MSD). 
 
 ### LammpsDiffusion
 
 ### LammpsRDF
+cd ,

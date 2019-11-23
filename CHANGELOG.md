@@ -1,4 +1,12 @@
-## [0.0.1] - 11-23-2019
+## Unreleased [0.0.2]
+
+### Added
+
+### Fixed
+
+- Lammps_StrGenerate can only generate Full type data file
+
+## [0.0.1] -11-23-2019
 
 ### Added
 

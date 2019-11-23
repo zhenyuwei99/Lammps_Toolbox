@@ -1,8 +1,8 @@
-function [varargout]    =   LammpsReadDump(name_dump,t_sim,dump_prop,dump_col)
+function [varargout]    =   LammpsReadDump(dump_name,dump_prop,dump_col,t_sim)
 
 %% Description
 % Command:
-%[varargout]    =   LammpsReadDump(name_dump,t_sim,dump_prop,dump_col);
+% [varargout]    =   LammpsReadDump(dump_name,dump_prop,dump_col,t_sim)
 %
 % Input:
 % name_dump: name of dump file
@@ -16,7 +16,7 @@ function [varargout]    =   LammpsReadDump(name_dump,t_sim,dump_prop,dump_col)
 
 %% Reading data
 
-data                    =   readdump_all(name_dump);
+data                    =   readdump_all(dump_name);
 
 %% Simulation   variable
 
