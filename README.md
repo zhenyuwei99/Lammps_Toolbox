@@ -12,7 +12,7 @@ In Matlab:
 ```matlab
 pathtool
 ```
-Using adding with subfolder to add all pathes of Lammps_Tool folders.
+Using **Adding with Subfolders** to add all pathes of Lammps_Tool folders.
 
 Now you can use all of functions.
 
@@ -46,7 +46,7 @@ Thanks  Author :
 
 LammpsReadDump function is the core function in Data_Analysis module. A struture containg all information in dump file will be generated and used in the other function for further analysis. In other words, this function should be runed before any other utilization of other functions.
 
-*Example *
+**Example**
 ```matlab
 dump_name   =   'example.dump';
 dump_prop   =   ['id type coord vel'];
@@ -94,7 +94,7 @@ LammpsStrGenerate is main function will be used to generate a struture variable 
 -atom_type could be a number or a vector. When atom_type is one number, type id of all the atoms in cell will be this number. When atom_type is a vector, whose dimension of vectors determined by number of atoms in basic cell of specific strtuture.
 -atom_charge is the charge of atoms, also obey the rules of atom_type.
 
-*Example*
+**Example**
 ```matlab
 struture            =   'BCC';
 num_cell            =   [2 2 2];
