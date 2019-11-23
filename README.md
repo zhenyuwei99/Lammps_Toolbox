@@ -36,18 +36,22 @@ data        =   LammpsReadDump(dump_name,dump_prop,dump_col,t_sim);
 
 Notice: martic 'coord' should be contained in output struture variable. Or the name of coordinate data in dump_prop should be 'coord' (saying annotation in LammpsReadDump.m for further information)
 
-### LammpsPBC
+### LammpsPBC(data)
 
 LammpsPBC function is used to handle Periodic Boundary Condition (PBC) issues. Coordinate file will be unwarped if PBC is used in MD simulation;
 
 
 
-### LammpsMSD
+### LammpsMSD(data)
 
 LammpsMSD function is used to calculate Meas Square Displacement (MSD). 
 
-### LammpsDiffusion
-s
+### LammpsDiffusion(data,alpha)
+
 LammpsDiffusion function is used to calculate diffusion coefficients
+
+alpha is ratio of simulation time to maximum MSD interval. 
+
+$T_{MSD} = \frac{1}{\alpha} T_{sim}$
 
 ### LammpsRDF
