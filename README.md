@@ -7,9 +7,13 @@ Functions in this folder is in-built one which could be found in [your lammps ho
 
 Thanks  Author :  
 >Arun K. Subramaniyan
+
 >sarunkarthi@gmail.com
+
 >http://web.ics.purdue.edu/~asubrama/pages/Research_Main.htm
+
 >School of Aeronautics and Astronautics
+
 >Purdue University, West Lafayette, IN - 47907, USA.
 
 ## Data_Analysis
