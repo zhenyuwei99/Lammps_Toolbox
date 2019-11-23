@@ -40,7 +40,7 @@ Thanks  Author :
 
 ## Data_Analysis
 
-![image](https://github.com/zhenyuwei99/Lammps_Toolbox/raw/master/Images/README/Github_Data_Analysis.pdf)
+![image](https://github.com/zhenyuwei99/repository仓库名/raw/分支名master/图片文件夹名称/***.png or***.jpg)
 
 ### LammpsReadDump(dump_name,dump_prop,dump_col,t_sim)
 
@@ -81,8 +81,6 @@ LammpsRDF function is used to calculate Radial Distribution Function (RDF).
 -num_bins is the number of bins between 0 to r_cut.  
 
 ## Str_Generation
-
-![image](https://github.com/zhenyuwei99/Lammps_Toolbox/raw/master/Images/README/Github_Str_Generation.pdf)
 
 ### LammpsStrGenerate(structure,num_cell,lattice_const,atom_type,atom_charge)
 
