@@ -95,8 +95,14 @@ LammpsStrGenerate is main function will be used to generate a struture variable 
 - struture is a string of which struture will be used. SC BCC FCC DC are supported right now.
 - num_cell is a 3 D vectors represents the number of cells in three direction respectively.
 - lattice_const is lattice constance of struture.
-- atom_type could be a number or a vector. When atom_type is one number, type id of all the atoms in cell will be this number. When atom_type is a vector, whose dimension of vectors determined by number of atoms in basic cell of specific strtuture.
+- atom_type could be in three types: 
+   - *Case 1* : atom_type = 1, all atom will be set to type 1;
+   - *Case 2* : atom_type = 2, each atom in cell will get anunique type
+   - *Case 3* : atom_type is matric. each of atom will be set to type correspond number in matric. Matric lenghth should be equal to # of atoms in cell strickly.
 - atom_charge is the charge of atoms, also obey the rules of atom_type.
+   - *Case 1* : atom_charge = 0; All atom charge will be set to 0.
+   - *Case 2* : atom_charge single number. All atom will be set to the same charge.
+   - *Case 3* : atom_charge is a matric. Each atom will be set to a charge correspond number in matric. Same as Case 3 of atom_type, length of matric should be equal to # of atoms in cell
 
 **Example**
 ```matlab
