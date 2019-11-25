@@ -1,3 +1,8 @@
+## Unreleased [0.0.3]
+
+### Added
+- LammpsStrGraphene2D
+- LammpsPhysicalProp
 
 ## [0.0.2] -11-24-2019
 
