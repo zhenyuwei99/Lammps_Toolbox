@@ -58,7 +58,7 @@ atom_style      =   'full';
 
 fprintf("# of atoms: %d\n",num_cell_tot*num_cell_atom)
 
-%% Writing Data File
+%% Writing Data 
 
 for dim = 1 : num_dim
     size_box(dim,:) = [0 , varargin{2} * varargin{1}(dim)];
