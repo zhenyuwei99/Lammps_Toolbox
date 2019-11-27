@@ -8,7 +8,7 @@
 ## [0.0.3] -11-27-2019
 
 ### Added
-- LammpsPhysicalProp
+- LammpsPhysicalProp: Momentu, E_kinetic and Temprature are calculated right now.
 - LammpsReadDump can seprate data of atoms of different types
 
 ## [0.0.2] -11-24-2019
