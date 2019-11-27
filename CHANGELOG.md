@@ -1,8 +1,15 @@
-## Unreleased [0.0.3]
+## Unreleased [0.0.4] 
 
 ### Added
-- LammpsStrGraphene2D
+
+- LammpsStrGraphene
+- LammpsNeighborList
+
+## [0.0.3] -11-27-2019
+
+### Added
 - LammpsPhysicalProp
+- LammpsReadDump can seprate data of atoms of different types
 
 ## [0.0.2] -11-24-2019
 

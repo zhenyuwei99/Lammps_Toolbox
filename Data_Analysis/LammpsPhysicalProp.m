@@ -12,40 +12,33 @@ function [varargout]        =   LammpsPhysicalProp(varargin)
 
 %% Handling PBC issues
 
-coord_corr                  =   LammpsPBC(varargin{1}.coord,varargin{1}.box_size);
+coord_corr                  =   LammpsPBC(varargin{1});
 
 %% Calculating Variables
 
 k_b                         =   1.38065e-23;
 n_a                         =   6.02214e23;
+g2kg                        =   1e-3;
 an2m                        =   1e-10;
 fs2s                        =   1e-15;
 
 
+%% Calculating Momentum
+
+Momentum                    =   varargin{1}.vel .* varargin{2};
+
 %% Calculating Kinetic Energy
 
-E_kine                      =   zeros(varargin{1}.num_dims,varargin{1}.num_steps_sim);
-
-for dim = 1 : varargin{1}.num_dims
-    E_kine(dim,:)                      =   sum(squeeze(varargin{1}.vel(:,dim,:)).^2);
-end
-
-E_kine                      =   E_kine .* 0.5 .* varargin{2};
+E_kine                      =   Momentum .^ 2 ./ (varargin{2}) ./ 2;
 
 %% Calculating Temp
 
-temp                        =   zeros(varargin{1}.num_dims,varargin{1}.num_steps_sim);
-
-for dim = 1 : varargin{1}.num_dims
-    temp(dim,:) =  mean(squeeze(varargin{1}.vel(:,dim,:)).^2);
-end
-
-temp                        =   temp .* (varargin{2} * an2m^2 ) ./ (n_a * k_b * fs2s^2);
-
+Temp                        =   squeeze(sum(E_kine)) ./ k_b .* (2/3) ./(varargin{1}.num_atoms-1);
+Temp                        =   sum(Temp);
 
 %% -----------------------Output-----------------------
 
-varargout{1}.E_kine         =   E_kine;
-varargout{1}.temp           =   temp;
-
+varargout{1}.Momentum       =   Momentum .* (g2kg/n_a) .* (an2m/fs2s);
+varargout{1}.E_kine         =   E_kine .* (g2kg/n_a) .* (an2m/fs2s).^2;
+varargout{1}.Temp           =   Temp .* (g2kg/n_a) .* (an2m/fs2s).^2;
 

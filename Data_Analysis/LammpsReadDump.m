@@ -38,26 +38,92 @@ box_diag                =   diag(box_size);
 
 %% Rearranging raw data
 
-for step = 1 : num_steps_sim
-    data.atom_data(:,:,step)     =   sortrows(squeeze(data.atom_data(:,:,step)),1);
+for i = 1 : length(dump_col)
+    if dump_prop{i} == "id"
+        col_id = dump_col(i);
+        break
+    end
 end
+
+for step = 1 : num_steps_sim
+    data.atom_data(:,:,step)     =   sortrows(squeeze(data.atom_data(:,:,step)),col_id);
+end
+
+%% Judging Atom type
+
+for i = 1 : length(dump_col)
+    if dump_prop{i} == "type"
+        col_type = dump_col(i);
+        break
+    end
+end
+
+id_type                 =   unique(squeeze(data.atom_data(:,col_type,1)));
+num_types               =   length(id_type);
+
+if num_types == 1
+    mode_output             =   1;
+else
+    mode_output             =   2;
+    for type = 1 : num_types
+        command = ['num_atom_',num2str(id_type(type)),'= sum( squeeze(data.atom_data(:,col_type,1)) == ' , num2str(id_type(type)),' );'];
+        eval(command);
+        command = ['data_atom_',num2str(id_type(type)),'= data.atom_data(find(squeeze(data.atom_data(:,col_type,1))==',num2str(id_type(type)),'),:,:);'];
+        eval(command);
+    end
+end     
+
 
 %% -----------------------Output-----------------------
+if mode_output == 1
+    varargout{1}.num_atoms      =   num_atoms;
+    varargout{1}.num_steps_sim  =   num_steps_sim;
+    varargout{1}.num_props      =   num_props;
+    varargout{1}.num_dims       =   num_dims;
+    varargout{1}.t_sim          =   t_sim;
+    varargout{1}.time_sim       =   time_sim;
+    varargout{1}.box_size       =   box_size;
+    varargout{1}.box_diag       =   box_diag;
 
-varargout{1}.num_atoms      =   num_atoms;
-varargout{1}.num_steps_sim  =   num_steps_sim;
-varargout{1}.num_props      =   num_props;
-varargout{1}.num_dims       =   num_dims;
-varargout{1}.t_sim          =   t_sim;
-varargout{1}.time_sim       =   time_sim;
-varargout{1}.box_size       =   box_size;
-varargout{1}.box_diag       =   box_diag;
-
-for prop = 1 : num_props
-    if prop < num_props
-        command = ['varargout{1}.',dump_prop{prop},'= data.atom_data(:, dump_col(prop):dump_col(prop+1)-1 ,:);'];
-    else
-        command = ['varargout{1}.',dump_prop{prop},'= data.atom_data(:,dump_col(prop):num_col_tot,:);'];
+    for prop = 1 : num_props
+        if prop < num_props
+            command = ['varargout{1}.',dump_prop{prop},'= data.atom_data(:, dump_col(prop):dump_col(prop+1)-1 ,:);'];
+        else
+            command = ['varargout{1}.',dump_prop{prop},'= data.atom_data(:,dump_col(prop):num_col_tot,:);'];
+        end
+        eval(command);
     end
-    eval(command);
 end
+
+if mode_output == 2
+    varargout{1}.num_atoms      =   num_atoms;
+    for type = 1 : num_types
+        command = ['varargout{',num2str(type),'}.num_atoms = num_atom_',num2str(id_type(type)),';'];
+        eval(command);
+    end
+    varargout{1}.num_steps_sim  =   num_steps_sim;
+    varargout{1}.num_props      =   num_props;
+    varargout{1}.num_dims       =   num_dims;
+    varargout{1}.t_sim          =   t_sim;
+    varargout{1}.time_sim       =   time_sim;
+    varargout{1}.box_size       =   box_size;
+    varargout{1}.box_diag       =   box_diag;
+
+    for prop = 1 : num_props
+        if prop < num_props
+            command = ['varargout{1}.',dump_prop{prop},'= data.atom_data(:, dump_col(prop):dump_col(prop+1)-1 ,:);'];
+        else
+            command = ['varargout{1}.',dump_prop{prop},'= data.atom_data(:,dump_col(prop):num_col_tot,:);'];
+        end
+        eval(command);
+        for type = 1 : num_types
+            if prop < num_props
+                command = ['varargout{1}.',dump_prop{prop},'_atom_',num2str(id_type(type)),'= data_atom_',num2str(id_type(type)),'(:, dump_col(prop):dump_col(prop+1)-1 ,:);'];
+            else
+                command = ['varargout{1}.',dump_prop{prop},'_atom_',num2str(id_type(type)),'= data_atom_',num2str(id_type(type)),'(:,dump_col(prop):num_col_tot,:);'];
+            end
+            eval(command);
+        end
+    end
+end
+
