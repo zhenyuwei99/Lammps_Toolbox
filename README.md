@@ -1,6 +1,6 @@
 # Installation
 
-Xpen a new terminal and move to the folder you want to download this code, conducting:
+Open a new terminal and move to the folder you want to download this code, conducting:
 
 ```bash
 git clone https://github.com/zhenyuwei99/Lammps_Toolbox.git
