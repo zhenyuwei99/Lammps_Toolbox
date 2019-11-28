@@ -17,7 +17,7 @@ coord_corr_02           =   LammpsPBC(data_02);
 %% Variables setting
 
 r_delta                 =   r_cut / num_bins;
-rho_01                  =   data_01.num_atoms / (transpose(data_01.box_size) * data_01.box_size);
+rho_01                  =   data_01.num_atoms / (data_01.box_volume);
 
 %% Calculating RDF
 

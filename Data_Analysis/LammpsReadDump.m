@@ -35,6 +35,11 @@ box_range(2,:)          =   mean(data.y_bound);
 box_range(3,:)          =   mean(data.z_bound);
 box_size                =   box_range(:,2) - box_range(:,1);    % 3-d vector of box size
 box_diag                =   diag(box_size);
+box_volume              =   1;
+
+for dim = 1 : num_dims
+    box_volume = box_volume * box_size(dim);
+end
 
 %% Rearranging raw data
 
@@ -84,7 +89,8 @@ if mode_output == 1
     varargout{1}.time_sim       =   time_sim;
     varargout{1}.box_size       =   box_size;
     varargout{1}.box_diag       =   box_diag;
-
+    varargout{1}.box_volume     =   box_volume;
+    
     for prop = 1 : num_props
         if prop < num_props
             command = ['varargout{1}.',dump_prop{prop},'= data.atom_data(:, dump_col(prop):dump_col(prop+1)-1 ,:);'];
@@ -108,6 +114,7 @@ if mode_output == 2
     varargout{1}.time_sim       =   time_sim;
     varargout{1}.box_size       =   box_size;
     varargout{1}.box_diag       =   box_diag;
+    varargout{1}.box_volume     =   box_volume;
 
     for prop = 1 : num_props
         if prop < num_props
