@@ -2,17 +2,18 @@ function [varargout]        =   LammpsPhysicalProp(varargin)
 
 %% Description
 % Command:
-% [varargout] =  LammpsPhysicalProp(name_dump,t_sim,dump_porp,dump_col);
 %
-% Output:
+% [varargout] =  LammpsPhysicalProp(data,mass);
 %
-% Temp:
-% E_kine
-
-
-%% Handling PBC issues
-
-coord_corr                  =   LammpsPBC(varargin{1});
+% Input:
+%
+% data: structure created by LammpsReadDump(dump_name,t_sim,dump_prop,dump_col)
+% mass: mass of atom in data struture. Currently, only unique atom data
+% struture are supported.
+%
+% Current Supported Physical Properties:
+%
+% Momentum, Kinetic Energy (Total), and Temparture
 
 %% Calculating Variables
 

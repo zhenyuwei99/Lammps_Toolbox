@@ -1,9 +1,15 @@
-## Unreleased [0.0.4] 
+## Unreleased [0.0.5]
 
 ### Added
 
-- LammpsStrGraphene
+- LammpsStrGraphene2D
+
+## [0.0.4] -11-28-2019
+
+### Added
+
 - LammpsNeighborList
+- LammpsSclCoord
 
 ## [0.0.3] -11-27-2019
 
