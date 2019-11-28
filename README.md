@@ -92,10 +92,6 @@ LammpsNeighborList function is used to construct Neighbour List of each atoms in
 
 - r_cut is the cut off radius for Neighbor List construction.
 
-LammpsNeigh
-
-- data 
-
 ## Str_Generation
 
 <div  align="center">   

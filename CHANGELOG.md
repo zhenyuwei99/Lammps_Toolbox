@@ -10,11 +10,11 @@
 
 - LammpsNeighborList
 - LammpsSclCoord
-- LammpsReadDump will return 'box_volume' in output data struture
+- LammpsReadDump will return **'box_volume'** in output data struture
 
 ### Fixed
 
-- LammpsRDF use data.box_volume instead of 'data.box_size' * data.box_size'.
+- LammpsRDF uses **'data.box_volume'** instead of **'data.box_size' * data.box_size'** as volume of simulation box.
 
 ## [0.0.3] -11-27-2019
 
