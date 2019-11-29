@@ -27,6 +27,7 @@ function [data] = LammpsStrGenerate(varargin)
 %                   number of atoms in cell
 
 %% Judging Input
+
 if nargin <= 3
     atom_type = 1;
 else
