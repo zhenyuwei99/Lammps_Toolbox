@@ -15,7 +15,7 @@ function [varargout] = scandump(varargin)
 %
 % See also readdump_one, scandump
 %
-%  Author :  Arun K. Subramaniyan
+% Author :  Arun K. Subramaniyan
 %            sarunkarthi@gmail.com
 %            http://web.ics.purdue.edu/~asubrama/pages/Research_Main.htm
 %            School of Aeronautics and Astronautics

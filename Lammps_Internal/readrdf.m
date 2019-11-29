@@ -23,7 +23,7 @@ function varargout = readrdf(varargin)
 %       rdf = readrdf('inputfile','bin',100,'runtime',[30000;20000],...
 %                     'step',[100;100],'ncol',3,'final','no')
 %
-%  Author :  Arun K. Subramaniyan
+% Author :  Arun K. Subramaniyan
 %            sarunkarthi@gmail.com
 %            http://web.ics.purdue.edu/~asubrama/pages/Research_Main.htm
 %            School of Aeronautics and Astronautics

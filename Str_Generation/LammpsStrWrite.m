@@ -25,6 +25,7 @@ desc_name   = [
     "dihedral types"
     "improper types"
     ];
+
 num_desc = length(desc_data);
 
 fidout = fopen(name_output, 'w');

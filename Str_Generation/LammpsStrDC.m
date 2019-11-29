@@ -41,31 +41,31 @@ str_mtr             =   [
                         1.5 1.5 0.5
                         ];
 
-[num_cell_atom,num_dim]       =   size(str_mtr);
+[num_cell_atoms,num_dims]       =   size(str_mtr);
 
 if varargin{3} == 1
-    varargin{3} = ones(num_cell_atom,1);
+    varargin{3} = ones(num_cell_atoms,1);
     num_atom_type = 1;
 elseif varargin{3} == 2;
-    varargin{3} = 1:num_cell_atom;
-    num_atom_type = num_cell_atom;
+    varargin{3} = 1:num_cell_atoms;
+    num_atom_type = num_cell_atoms;
 else
     num_atom_type = length(varargin{3});
 end
 
 if varargin{4} == 0
-    varargin{4} = zeros(num_cell_atom,1);
+    varargin{4} = zeros(num_cell_atoms,1);
 elseif length(varargin{4}) == 1
-    varargin{4} = ones(num_cell_atom,1) * varargin{4};
+    varargin{4} = ones(num_cell_atoms,1) * varargin{4};
 end
 
 atom_style      =   'full';
 
-fprintf("# of atoms: %d\n",num_cell_tot*num_cell_atom)
+fprintf("# of atoms: %d\n",num_cell_tot*num_cell_atoms)
 
 %% Writing Data File
 
-for dim = 1 : num_dim
+for dim = 1 : num_dims
     size_box(dim,:) = [0 , varargin{2} * varargin{1}(dim)];
 end
 
@@ -73,8 +73,8 @@ for x = 1 : varargin{1}(1)
     for y = 1 : varargin{1}(2)
         for z = 1 : varargin{1}(3)
             cell_now = z + varargin{1}(3) * (y-1) + varargin{1}(3) * varargin{1}(2) * (x-1);
-            for atom = 1 : num_cell_atom
-                data_str(cell_now,atom,1) = (cell_now - 1) * num_cell_atom + atom;
+            for atom = 1 : num_cell_atoms
+                data_str(cell_now,atom,1) = (cell_now - 1) * num_cell_atoms + atom;
                 data_str(cell_now,atom,2) = cell_now;
                 data_str(cell_now,atom,3) = varargin{3}(atom);
                 data_str(cell_now,atom,4) = varargin{4}(atom);
@@ -89,6 +89,6 @@ end
 varargout{1}.size_box       =   size_box;
 varargout{1}.data_str       =   data_str;
 varargout{1}.num_cell_tot   =   num_cell_tot;
-varargout{1}.num_cell_atom  =   num_cell_atom;
+varargout{1}.num_cell_atom  =   num_cell_atoms;
 varargout{1}.num_atom_type  =   num_atom_type;
 varargout{1}.atom_style     =   atom_style;

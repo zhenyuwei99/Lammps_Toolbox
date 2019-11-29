@@ -20,7 +20,7 @@ function varargout = readEAM(varargin)
 % Example
 %       eam = readEAM('cuu3.eam','funcfl');
 %
-%  Author :  Arun K. Subramaniyan
+% Author :  Arun K. Subramaniyan
 %            sarunkarthi@gmail.com
 %            http://web.ics.purdue.edu/~asubrama/pages/Research_Main.htm
 %            School of Aeronautics and Astronautics

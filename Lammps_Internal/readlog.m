@@ -9,7 +9,7 @@ function [varargout] = readlog(varargin)
 % Example
 %       logdata = readlog('log.LAMMPS');
 %
-%  Author :  sarunkarthi@gmail.com
+% Author :  sarunkarthi@gmail.com
 %            http://web.ics.purdue.edu/~asubrama/pages/Research_Main.htm
 %            Arun K. Subramaniyan
 %            School of Aeronautics and Astronautics
