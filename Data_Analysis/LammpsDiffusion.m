@@ -22,7 +22,7 @@ diffusion                   =   zeros(data.num_atoms,data.num_dims+1);
 
 for atom = 1 : data.num_atoms
     for dim = 1 : data.num_dims + 1
-        slope = fit( data_msd.time_msd',squeeze(data_msd.msd(atom,dim,:)) , 'poly1');
+        slope = fit( data_msd.time_msd' , squeeze(data_msd.msd(atom,dim,:)) , 'poly1');
         diffusion(atom,dim) = slope.p1 / 2;
     end
     diffusion(atom,data.num_dims+1) = diffusion(atom,data.num_dims+1) / data.num_dims;

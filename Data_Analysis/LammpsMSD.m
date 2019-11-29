@@ -17,6 +17,7 @@ coord_corr              =   LammpsPBC(data);
 
 num_steps_msd           =   round(data.num_steps_sim / alpha);    
 msd                     =   zeros([data.num_atoms,data.num_dims+1,num_steps_msd]);
+msd_error            	=   zeros([data.num_atoms,data.num_dims+1,num_steps_msd]);
 time_msd                =   [1:num_steps_msd] ./ (num_steps_msd / data.t_sim * alpha);
 
 for step = 1 : num_steps_msd
