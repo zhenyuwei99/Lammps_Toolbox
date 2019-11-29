@@ -25,20 +25,6 @@ g_x                     =   [1:num_bins] ./ (num_bins/r_cut);
 g_raw                   =   zeros(data_01.num_atoms,num_bins,data_01.num_steps_sim);
 g_time_avg              =   zeros(data_01.num_atoms,num_bins);
 
-%{
-for step = 1 : data_01.num_steps_sim
-    for atom_01 = 1 : data_01.num_atoms
-        for atom_02 = 1 : data_02.num_atoms
-            dist    =   sqrt(sum( (coord_corr_02(atom_02,:,step) - coord_corr_01(atom_01,:,step) ).^2 ));
-            if dist <= r_cut && dist
-                bin = ceil(dist / r_delta);
-                g_raw(atom_01,bin,step) = g_raw(atom_01,bin,step) + 1;
-            end
-        end
-    end
-end
-%}
-
 for atom_01 = 1 : data_01.num_atoms
     for atom_02 = atom_01 + 1 : data_02.num_atoms
         r_scl = squeeze(coord_scl_02(atom_02,:,:) - coord_scl_01(atom_01,:,:));
