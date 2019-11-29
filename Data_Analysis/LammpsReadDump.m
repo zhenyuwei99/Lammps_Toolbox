@@ -102,34 +102,30 @@ if mode_output == 1
 end
 
 if mode_output == 2
-    varargout{1}.num_atoms      =   num_atoms;
     for type = 1 : num_types
-        command = ['varargout{',num2str(type),'}.num_atoms = num_atom_',num2str(id_type(type)),';'];
+        varargout{type}.num_steps_sim  =   num_steps_sim;
+        varargout{type}.num_props      =   num_props;
+        varargout{type}.num_dims       =   num_dims;
+        varargout{type}.t_sim          =   t_sim;
+        varargout{type}.time_sim       =   time_sim;
+        varargout{type}.box_size       =   box_size;
+        varargout{type}.box_diag       =   box_diag;
+        varargout{type}.box_volume     =   box_volume;
+        command = ['varargout{type}.num_atoms = num_atom_',num2str(id_type(type)),';'];
         eval(command);
-    end
-    varargout{1}.num_steps_sim  =   num_steps_sim;
-    varargout{1}.num_props      =   num_props;
-    varargout{1}.num_dims       =   num_dims;
-    varargout{1}.t_sim          =   t_sim;
-    varargout{1}.time_sim       =   time_sim;
-    varargout{1}.box_size       =   box_size;
-    varargout{1}.box_diag       =   box_diag;
-    varargout{1}.box_volume     =   box_volume;
-
-    for prop = 1 : num_props
-        if prop < num_props
-            command = ['varargout{1}.',dump_prop{prop},'= data.atom_data(:, dump_col(prop):dump_col(prop+1)-1 ,:);'];
-        else
-            command = ['varargout{1}.',dump_prop{prop},'= data.atom_data(:,dump_col(prop):num_col_tot,:);'];
-        end
-        eval(command);
-        for type = 1 : num_types
+        for prop = 1 : num_props
             if prop < num_props
-                command = ['varargout{1}.',dump_prop{prop},'_atom_',num2str(id_type(type)),'= data_atom_',num2str(id_type(type)),'(:, dump_col(prop):dump_col(prop+1)-1 ,:);'];
+                command = ['varargout{type}.',dump_prop{prop},'= data.atom_data(:, dump_col(prop):dump_col(prop+1)-1 ,:);'];
             else
-                command = ['varargout{1}.',dump_prop{prop},'_atom_',num2str(id_type(type)),'= data_atom_',num2str(id_type(type)),'(:,dump_col(prop):num_col_tot,:);'];
+                command = ['varargout{type}.',dump_prop{prop},'= data.atom_data(:,dump_col(prop):num_col_tot,:);'];
             end
             eval(command);
+            if prop < num_props
+               	command = ['varargout{type}.',dump_prop{prop},'= data_atom_',num2str(id_type(type)),'(:, dump_col(prop):dump_col(prop+1)-1 ,:);'];
+            else
+              	command = ['varargout{type}.',dump_prop{prop},'= data_atom_',num2str(id_type(type)),'(:,dump_col(prop):num_col_tot,:);'];
+            end
+          	eval(command);
         end
     end
 end

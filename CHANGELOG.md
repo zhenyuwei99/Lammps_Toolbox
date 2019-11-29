@@ -1,8 +1,13 @@
-## Unreleased [0.0.5]
+## Unreleased [0.0.6]
 
-### Added
+## [0.0.5] -11-29-2019
 
-- LammpsStrGraphene2D
+### Fixed
+
+- LammpsRDF: 
+   - Coordinates should not be unwraped in the begining of LammpsRDF function. PBC is needed to produce a result that reflects the real condition.
+   - New algorithm is applied to calculate RDF, reducing to 1 / 100.
+
 
 ## [0.0.4] -11-28-2019
 
