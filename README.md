@@ -60,6 +60,10 @@ data        =   LammpsReadDump(dump_name,dump_prop,dump_col,t_sim);
 
 Notice: martic 'coord' should be contained in output struture variable. Or the name of coordinate data in dump_prop should be 'coord' (saying annotation in LammpsReadDump.m for further information)
 
+### LammpsConstants()
+
+LammpsConstans function is used to generate a struture which contains many useful constants and unit converters in data anlysis of MD simulation.
+
 ### LammpsPBC(data)
 
 LammpsPBC function is used to handle Periodic Boundary Condition (PBC) issues. Coordinate file will be unwarped if PBC is used in MD simulation;

@@ -2,6 +2,11 @@
 
 ## [0.0.5] -11-29-2019
 
+### Added
+
+- LammpsConstants
+- LammpsPhysicalProp: Calculation of density is currently supported.
+
 ### Fixed
 
 - LammpsRDF: 

@@ -13,16 +13,11 @@ function [varargout]        =   LammpsPhysicalProp(varargin)
 %
 % Current Supported Physical Properties:
 %
-% Momentum, Kinetic Energy (Total), and Temparture
+% Momentum, Kinetic Energy (Total), Temparture , and Density
 
-%% Calculating Variables
+%% Physical Variable Setting
 
-k_b                         =   1.38065e-23;
-n_a                         =   6.02214e23;
-g2kg                        =   1e-3;
-an2m                        =   1e-10;
-fs2s                        =   1e-15;
-
+data_constants              =   LammpsConstants();
 
 %% Calculating Momentum
 
@@ -34,12 +29,16 @@ E_kine                      =   Momentum .^ 2 ./ (varargin{2}) ./ 2;
 
 %% Calculating Temp
 
-Temp                        =   squeeze(sum(E_kine)) ./ k_b .* (2/3) ./(varargin{1}.num_atoms-1);
+Temp                        =   squeeze(sum(E_kine)) ./ data_constants.k_b .* (2/3) ./(varargin{1}.num_atoms-1);
 Temp                        =   sum(Temp);
+
+%% Calculating Rho
+
+Rho                         =   varargin{1}.num_atoms * varargin{2} / (varargin{1}.box_volume);
 
 %% -----------------------Output-----------------------
 
-varargout{1}.Momentum       =   Momentum .* (g2kg/n_a) .* (an2m/fs2s);
-varargout{1}.E_kine         =   E_kine .* (g2kg/n_a) .* (an2m/fs2s).^2;
-varargout{1}.Temp           =   Temp .* (g2kg/n_a) .* (an2m/fs2s).^2;
-
+varargout{1}.Momentum       =   Momentum .* (data_constants.g2kg/data_constants.n_a) .* (data_constants.an2m/data_constants.fs2s);
+varargout{1}.E_kine         =   E_kine .* (data_constants.g2kg/data_constants.n_a) .* (data_constants.an2m/data_constants.fs2s).^2;
+varargout{1}.Temp           =   Temp .* (data_constants.g2kg/data_constants.n_a) .* (data_constants.an2m/data_constants.fs2s).^2;
+varargout{1}.Rho            =   Rho * data_constants.gm2kg / data_constants.an2m^3;
