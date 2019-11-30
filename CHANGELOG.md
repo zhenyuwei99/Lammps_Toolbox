@@ -1,4 +1,4 @@
-## Unreleased 
+## Unreleased [0.0.7] 
 
 ### Added
 
@@ -23,6 +23,10 @@
 ### Fixed
 
 - **LammpsRDF**: RDF now converges to 1 when calculating RDF between different atoms.
+
+### Deprecated
+
+- Functions in **Lammps_internal** folder.
 
 ## [0.0.5] -11-29-2019
 
