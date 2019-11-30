@@ -49,7 +49,7 @@ Thanks  Author :
 <img src="https://github.com/zhenyuwei99/Lammps_Toolbox/raw/master/Images/README/Github_DataAnalysis.png" width = "400" height = "320" alt="Data_Analysis Flowchart" align=center />
 </div>   
 
-### LammpsReadDump(dump_name,dump_prop,dump_col,t_sim)
+### [LammpsReadDump(dump_name,dump_prop,dump_col,t_sim)](https://github.com/zhenyuwei99/Lammps_Toolbox/blob/master/Data_Analysis/LammpsReadDump.m)
 
 LammpsReadDump function is the core function in Data_Analysis module. A struture containg all information in dump file will be generated and used in the other function for further analysis. In other words, this function should be runed before any other utilization of other functions.
 
@@ -65,7 +65,7 @@ data        =   LammpsReadDump(dump_name,dump_prop,dump_col,t_sim);
 
 Notice: martic 'coord' should be contained in output struture variable. Or the name of coordinate data in dump_prop should be 'coord' (saying annotation in LammpsReadDump.m for further information)
 
-### LammpsReadLog(log_name,log_prop)
+### [LammpsReadLog(log_name,log_prop)](https://github.com/zhenyuwei99/Lammps_Toolbox/blob/master/Data_Analysis/LammpsReadLog.m)
 
 LammpsReadLog function is used to read the data in log function.
 
@@ -78,25 +78,25 @@ data_log = LammpsReadLog(log_name,log_prop);
 ```
 Notice: Squeeze of log_prop should be follow the order in log file strictly.
 
-### LammpsConstants()
+### [LammpsConstants()](https://github.com/zhenyuwei99/Lammps_Toolbox/blob/master/Data_Analysis/LammpsConstants.m)
 
 LammpsConstans function is used to generate a struture which contains many useful constants and unit converters in data anlysis of MD simulation.
 
-### LammpsPBC(data)
+### [LammpsPBC(data)](https://github.com/zhenyuwei99/Lammps_Toolbox/blob/master/Data_Analysis/LammpsPBC.m)
 
 LammpsPBC function is used to handle Periodic Boundary Condition (PBC) issues. Coordinate file will be unwarped if PBC is used in MD simulation;
 
-### LammpsMSD(data)
+### [LammpsMSD(data)](https://github.com/zhenyuwei99/Lammps_Toolbox/blob/master/Data_Analysis/LammpsMSD.m)
 
 LammpsMSD function is used to calculate Meas Square Displacement (MSD). 
 
-### LammpsDiffusion(data,alpha)
+### [LammpsDiffusion(data,alpha)](https://github.com/zhenyuwei99/Lammps_Toolbox/blob/master/Data_Analysis/LammpsDiffusion.m)
 
 LammpsDiffusion function is used to calculate diffusion coefficients
 
 - alpha is ratio of simulation time to maximum MSD interval. 
 
-### LammpsRDF(data_01,data_02,r_cut,num_bins)
+### [LammpsRDF(data_01,data_02,r_cut,num_bins)](https://github.com/zhenyuwei99/Lammps_Toolbox/blob/master/Data_Analysis/LammpsRDF.m)
 
 LammpsRDF function is used to calculate Radial Distribution Function (RDF).
 
@@ -104,7 +104,7 @@ LammpsRDF function is used to calculate Radial Distribution Function (RDF).
 - r_cut is the cut off radius in RDF calculation
 - num_bins is the number of bins between 0 to r_cut.  
 
-### LammpsPhysicalProp(data,mass)
+### [LammpsPhysicalProp(data,mass)](https://github.com/zhenyuwei99/Lammps_Toolbox/blob/master/Data_Analysis/LammpsPhysicalProp.m)
 
 - mass is the mass of atom in data struture
 
@@ -116,15 +116,15 @@ Current supported properties:
 - Temp
 - Density
 
-### LammpsCoord2Scl(data)
+### [LammpsCoord2Scl(data)](https://github.com/zhenyuwei99/Lammps_Toolbox/blob/master/Data_Analysis/LammpsCoord2Scl.m)
 
 LammpsCoord2Scl function is used to calculate scaled corrdinates from raw coordinates.
 
-### LammpsScl2Coord(data)
+### [LammpsScl2Coord(data)](https://github.com/zhenyuwei99/Lammps_Toolbox/blob/master/Data_Analysis/LammpsScl2Coord.m)
 
 LammpsSclCoord function is used to calculate coordinates from scaled coordinates.
 
-### LammpsNeighborList(data,r_cut)
+### [LammpsNeighborList(data,r_cut)](https://github.com/zhenyuwei99/Lammps_Toolbox/blob/master/Data_Analysis/LammpsNeighborList.m)
 
 LammpsNeighborList function is used to construct Neighbour List of each atoms in each dump steps.
 
@@ -136,7 +136,7 @@ LammpsNeighborList function is used to construct Neighbour List of each atoms in
 <img src="https://github.com/zhenyuwei99/Lammps_Toolbox/raw/master/Images/README/Github_StrGeneration.png" width = "400" height = "500" alt="Data_Analysis Flowchart" align=center />
 </div>   
 
-### LammpsStrGenerate(structure,num_cell,lattice_const,atom_type,atom_charge)
+### [LammpsStrGenerate(structure,num_cell,lattice_const,atom_type,atom_charge)](https://github.com/zhenyuwei99/Lammps_Toolbox/blob/master/Str_Generation/LammpsStrGenerate.m)
 
 LammpsStrGenerate is main function will be used to generate a struture variable containg all information needed to write a .data file.
 
@@ -162,11 +162,11 @@ atom_charge         =   [1 -1];
 data                =   LammpsStrGenerate(structure,num_cell,lattice_const,atom_type,atom_charge);
 ```
 
-### LammpsStrSC, LammpsStrBCC, LammpsStrFCC, LammpsStrDC
+### [LammpsStrSC](https://github.com/zhenyuwei99/Lammps_Toolbox/blob/master/Str_Generation/LammpsStrSC.m), [LammpsStrBCC](https://github.com/zhenyuwei99/Lammps_Toolbox/blob/master/Str_Generation/LammpsStrBCC.m), [LammpsStrFCC](https://github.com/zhenyuwei99/Lammps_Toolbox/blob/master/Str_Generation/LammpsStrFCC.m), [LammpsStrDC](https://github.com/zhenyuwei99/Lammps_Toolbox/blob/master/Str_Generation/LammpsStrDC.m)
 
 All above function will be called determing by variable struture in LammpsStrGenerate. 
 
-### LammpsStrWrite(data,name_output)
+### [LammpsStrWrite(data,name_output)](https://github.com/zhenyuwei99/Lammps_Toolbox/blob/master/Str_Generation/LammpsStrWrite.m)
 
 - data is the struture generated by LammpsStrGenerate.
 - name_output is the name of .data file that you will write.
