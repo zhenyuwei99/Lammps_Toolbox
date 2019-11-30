@@ -5,11 +5,11 @@ function [varargout]    =   LammpsReadDump(dump_name,dump_prop,dump_col,t_sim)
 % [varargout]    =   LammpsReadDump(dump_name,dump_prop,dump_col,t_sim)
 %
 % Input:
-% name_dump: name of dump file
-% t_sim: simulation time. Unit: ns
-% dump_type: String of properties dumped in the dump file
+% dump_name: name of dump file
+% dump_prop: String of properties in the dump file
 % dump_col: The first column corresponds to each properties in dump_type
-%
+% t_sim: simulation time. Unit: ns
+
 % Example
 % dump_prop = ['id type coord vel'];
 % dump_col = [1 2 3 6];
@@ -33,12 +33,16 @@ box_range               =   zeros(num_dims,2);
 box_range(1,:)          =   mean(data.x_bound);
 box_range(2,:)          =   mean(data.y_bound);
 box_range(3,:)          =   mean(data.z_bound);
-box_size                =   box_range(:,2) - box_range(:,1);    % 3-d vector of box size
-box_diag                =   diag(box_size);
+box_size_time           =   zeros(num_dims,num_steps_sim);
+box_size_time(1,:,:)    =   data.x_bound(:,2) - data.x_bound(:,1);
+box_size_time(2,:,:)    =   data.y_bound(:,2) - data.y_bound(:,1);
+box_size_time(3,:,:)    =   data.z_bound(:,2) - data.z_bound(:,1);
+box_size_avg            =   box_range(:,2) - box_range(:,1);    % 3-d vector of box size
+box_diag                =   diag(box_size_avg);
 box_volume              =   1;
 
 for dim = 1 : num_dims
-    box_volume = box_volume * box_size(dim);
+    box_volume = box_volume * box_size_avg(dim);
 end
 
 %% Rearranging raw data
@@ -87,7 +91,9 @@ if mode_output == 1
     varargout{1}.num_dims       =   num_dims;
     varargout{1}.t_sim          =   t_sim;
     varargout{1}.time_sim       =   time_sim;
-    varargout{1}.box_size       =   box_size;
+    varargout{1}.box_range      =   box_range;
+    varargout{1}.box_size_time  =   box_size_time;
+    varargout{1}.box_size       =   box_size_avg;
     varargout{1}.box_diag       =   box_diag;
     varargout{1}.box_volume     =   box_volume;
     
@@ -103,14 +109,16 @@ end
 
 if mode_output == 2
     for type = 1 : num_types
-        varargout{type}.num_steps_sim  =   num_steps_sim;
-        varargout{type}.num_props      =   num_props;
-        varargout{type}.num_dims       =   num_dims;
-        varargout{type}.t_sim          =   t_sim;
-        varargout{type}.time_sim       =   time_sim;
-        varargout{type}.box_size       =   box_size;
-        varargout{type}.box_diag       =   box_diag;
-        varargout{type}.box_volume     =   box_volume;
+        varargout{type}.num_steps_sim   =   num_steps_sim;
+        varargout{type}.num_props       =   num_props;
+        varargout{type}.num_dims        =   num_dims;
+        varargout{type}.t_sim           =   t_sim;
+        varargout{type}.time_sim        =   time_sim;
+        varargout{type}.box_range     	=   box_range;
+        varargout{type}.box_size_time   =   box_size_time;
+        varargout{type}.box_size        =   box_size_avg;
+        varargout{type}.box_diag        =   box_diag;
+        varargout{type}.box_volume      =   box_volume;
         command = ['varargout{type}.num_atoms = num_atom_',num2str(id_type(type)),';'];
         eval(command);
         for prop = 1 : num_props

@@ -15,8 +15,8 @@ function [varargout] = LammpsRDF(data_01,data_02,r_cut,num_bins)
 
 %% Calculating Scaled Coordinate
 
-coord_scl_01            =   LammpsSclCoord(data_01);
-coord_scl_02            =   LammpsSclCoord(data_02);
+coord_scl_01            =   LammpsCoord2Scl(data_01);
+coord_scl_02            =   LammpsCoord2Scl(data_02);
 
 %% Variables setting
 

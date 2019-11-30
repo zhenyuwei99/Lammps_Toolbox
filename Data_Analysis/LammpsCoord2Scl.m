@@ -1,10 +1,9 @@
-function [coord_scl] = LammpsSclCoord(varargin)
-
+function [coord_scl] = LammpsCoord2Scl(varargin)
 %% Description
 % 
 % *Command*:
 %
-% coord_scl = LammpsSclCoord(data);
+% coord_scl = LammpsCoord2Scl(data);
 %
 % *Input*:
 %

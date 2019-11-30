@@ -67,16 +67,15 @@ Notice: martic 'coord' should be contained in output struture variable. Or the n
 
 ### LammpsReadLog(log_name,log_prop)
 
-LammpsReadLog function is used to read the data in log function.
+Input*:
+ log_name: name of log file.
+ log_prop: string of properties in log file; Same as keywords in
+           thermal_style command.
 
-**Example**
-```matlab
-log_name = 'log.lammps';
-log_prop = ['step temp press etotal vol'];
-data_log = LammpsReadLog(log_name,log_prop);
-
-```
-Notice: Squeeze of log_prop should be follow the order in log file strictly.
+ *Example*
+ log_prop: ['step temp press etotal vol'];
+ Notice: Squeeze of log_prop should be follow the order in log file
+         strictly.
 
 ### LammpsConstants()
 

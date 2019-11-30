@@ -1,11 +1,32 @@
-## Unreleased [0.0.6]
+## Unreleased 
+
+### Added
+
+- LammpsPhysicalProp: Calculations of **Pressure** and **Potential Energy** are currently supported.
+
+## [0.0.6] -11-30-2019
+
+### Added
+
+- LammpsReadLog
+- LammpsReadDump will return **'box_size_time'** in output data struture
+- LammpsScl2Coord: Calculating coordinate from scaled coordinate
+- LammpsCoord2Scl: New verison of LammpsSclCoord function. 
+
+### Deleted
+
+- LammpsSclCoord
 
 ## [0.0.5] -11-29-2019
+
+### Fixed
+
+- LammpsRDF: RDF now converges to 1 when calculating RDF between different atoms.
 
 ### Added
 
 - LammpsConstants
-- LammpsPhysicalProp: Calculation of density is currently supported.
+- LammpsPhysicalProp: Calculation of **Density** is currently supported.
 
 ### Fixed
 

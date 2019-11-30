@@ -27,6 +27,9 @@ Momentum                    =   varargin{1}.vel .* varargin{2};
 
 E_kine                      =   Momentum .^ 2 ./ (varargin{2}) ./ 2;
 
+%% Calculating Potential Energy
+%% Calculating Pressure
+
 %% Calculating Temp
 
 Temp                        =   squeeze(sum(E_kine)) ./ data_constants.k_b .* (2/3) ./(varargin{1}.num_atoms-1);

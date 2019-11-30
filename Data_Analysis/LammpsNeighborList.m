@@ -13,7 +13,7 @@ function [varargout] = LammpsNeighborList(varargin)
 
 %% Calculating scaled coordinates
 
-coord_scl               =   LammpsSclCoord(varargin{1});
+coord_scl               =   LammpsCoord2Scl(varargin{1});
 
 %% Constructing Neighbor List
 
