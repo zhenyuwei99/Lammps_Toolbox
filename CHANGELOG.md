@@ -1,8 +1,13 @@
-## Unreleased [0.0.7] 
+## Unreleased [0.0.7]
 
 ### Added
 
-- **LammpsPhysicalProp**: Calculations of **Pressure** and **Potential Energy** are currently supported.
+- **LammpsStrGenerate**: Roughed surface can be created currently.
+- **LammpsStrCellCoord**
+
+### Fixed
+
+- Work flow of structure generation. LammpsStrGenerate will call LammpsStrCellCoord to generate coordinates of cells and then feed this data to functions creating structure corresponding to variable **'struture'** in **LammpsStrGenerate**.
 
 ## [0.0.6] -11-30-2019
 
@@ -14,7 +19,7 @@
 
 ### Changed
 
-- **LammpsReadDump** will return **'box_size_time'** in output data struture
+- **LammpsReadDump** will return **'box_size_time'** in output data structure
 
 ### Deleted
 
@@ -37,8 +42,8 @@
 
 ### Fixed
 
-- **LammpsRDF**: 
-   - Coordinates should not be unwraped in the begining of LammpsRDF function. PBC is needed to produce a result that reflects the real condition.
+- **LammpsRDF**:
+   - Coordinates should not be unwraped in the beginning of LammpsRDF function. PBC is needed to produce a result that reflects the real condition.
    - New algorithm is applied to calculate RDF, reducing to 1 / 100.
 
 
@@ -51,7 +56,7 @@
 
 ### Changed
 
-- **LammpsReadDump** will return **'box_volume'** in output data struture
+- **LammpsReadDump** will return **'box_volume'** in output data structure
 
 ### Fixed
 
@@ -61,11 +66,11 @@
 
 ### Added
 
-- **LammpsPhysicalProp**: Momentu, E_kinetic and Temprature are currently supported.
+- **LammpsPhysicalProp**: Momentum, E_kinetic and Temperature are currently supported.
 
 ### Changed
 
-- **LammpsReadDump** can seprate data of atoms of different types
+- **LammpsReadDump** can separate data of atoms of different types
 
 ## [0.0.2] -11-24-2019
 
@@ -74,10 +79,10 @@
 - **README.md**
 
 ### Changed
-- Type of input variable atom_type in **LammpsStrGenerate**. Now atom_type could be three case: 
+- Type of input variable atom_type in **LammpsStrGenerate**. Now atom_type could be three case:
    - *Case 1* : atom_type = 1, all atom will be set to type 1;
-   - *Case 2* : atom_type = 2, each atom in cell will get anunique type
-   - *Case 3* : atom_type is matric. each of atom will be set to type correspond number in matric. Matric lenghth should be equal to # of atoms in cell strickly.
+   - *Case 2* : atom_type = 2, each atom in cell will get an unique type
+   - *Case 3* : atom_type is matrix. each of atom will be set to type correspond number in matrix. Matrix length should be equal to # of atoms in cell strictly.
 
 ## [0.0.1] -11-23-2019
 
@@ -100,4 +105,3 @@
    - **readdump_all**
    - **readdump_one**
    - **scandump**
-

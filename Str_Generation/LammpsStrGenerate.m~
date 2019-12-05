@@ -31,25 +31,26 @@ function [data] = LammpsStrGenerate(varargin)
 %
 % *Example*:
 %
-% structure = "bcc"; % Note: this variable should be string
-% cell_mode = ['sin 2 3 5 l l']; 
-% cell_num = [8,10,5]; 
+% struture = 'bcc';
+% Cell_Mode = ['sin 2 3 5 l l']; 
+% Cell_Num = [8,10,5]; 
 % atom_type = 1;
 % atom_charge = 0;
-% data = LammpsStrGenerate(structure,cell_mode,cell_num,lattice_const,atom_type,atom_charge);
+% data =
+% LammpsStrGenerate(structure,cell_mode,cell_num,lattice_const,atom_type,atom_charge);
 
 %% Judging Input
 
-if nargin <= 4
+if nargin <= 3
     atom_type = 1;
 else
-    atom_type = varargin{5};
+    atom_type = varargin{4};
 end
 
-if nargin <= 5
+if nargin <= 4
     atom_charge = 0;
 else
-    atom_charge = varargin{6};
+    atom_charge = varargin{5};
 end
 
 %% Supporting Information
@@ -64,7 +65,7 @@ for str = 1 : support_num
     if lower(varargin{1}) == support_str(str)
         str_id = str;
         fprintf("Structure : %s\n",varargin{1})
-        fprintf("Lattice constant: %-5.2f\n",varargin{4})
+        fprintf("Lattice constant: %-5.2f\n",varargin{3})
         support_judge = 1;
     end
 end
@@ -76,7 +77,5 @@ end
 
 %% Calling corresponding Function
 
-data_cell       =   LammpsStrCellCoord(varargin{2},varargin{3});
-
-func = ['data = LammpsStr',upper(char(support_str(str_id))),'(data_cell,varargin{4},atom_type,atom_charge);'];
+func = ['data = LammpsStr',upper(char(support_str(str_id))),'(varargin{2},varargin{3},atom_type,atom_charge);'];
 eval(func);

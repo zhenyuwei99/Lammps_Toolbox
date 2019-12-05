@@ -38,9 +38,9 @@ for desc = 1:num_desc
     fprintf(fidout,"%-6d\t%s\n",desc_data(desc),desc_name(desc));
 end
 
-fprintf(fidout,'%f  %f \t%s\n',data.size_box(1,1),data.size_box(1,2),'xlo xhi');
-fprintf(fidout,'%f  %f \t%s\n',data.size_box(2,1),data.size_box(2,2),'ylo yhi');
-fprintf(fidout,'%f  %f \t%s\n\n',data.size_box(3,1),data.size_box(3,2),'zlo zhi');
+fprintf(fidout,'%f  %f \t%s\n',data.box_size(1,1),data.box_size(1,2),'xlo xhi');
+fprintf(fidout,'%f  %f \t%s\n',data.box_size(2,1),data.box_size(2,2),'ylo yhi');
+fprintf(fidout,'%f  %f \t%s\n\n',data.box_size(3,1),data.box_size(3,2),'zlo zhi');
 fprintf(fidout,'\n\n\nAtoms # %s\n',data.atom_style);
 
 for cell_now = 1:data.num_cell_tot

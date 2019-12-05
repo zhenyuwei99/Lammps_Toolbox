@@ -83,7 +83,7 @@ progress_flag       =   0;      % Flag determing when data recording starts
 while feof(log) == 0
     current_line = fgetl(log);
     
-    if (strncmpi(current_line,'Loop time of',numel('Loop time of')))
+    if (strncmp(current_line,'Loop time of',numel('Loop time of')))
         break
     end
     if progress_flag
@@ -95,7 +95,10 @@ while feof(log) == 0
     end
 end
 
+
 %% -----------------------Output-----------------------
+
+varargout{1}.Plot_x = [1 : size(data,1)]';
 
 for input = 1 : num_inputs
     command = ['varargout{1}.',output_table{input_pos(input)},'=data(:,input);'];

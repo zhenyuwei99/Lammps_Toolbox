@@ -24,15 +24,15 @@ function [varargout] = LammpsStrSC(varargin)
 %                   of atom_type, length of matric should be equal to
 %                   number of atoms in cell
 
-
-%% Reading Input
-
-num_cell_tot        =   varargin{1}(1) * varargin{1}(2) * varargin{1}(3);
+%% Struture data
 
 str_mtr             =   [
                         0 0 0
                         ];
 
+%% Reading Input
+
+num_cell_tot        =   varargin{1}(1).num_cells;
 [num_cell_atoms,num_dims]       =   size(str_mtr);
 
 if varargin{3} == 1
@@ -57,28 +57,20 @@ fprintf("# of atoms: %d\n",num_cell_tot*num_cell_atoms)
 
 %% Writing Data File
 
-for dim = 1 : num_dims
-    size_box(dim,:) = [0 , varargin{2} * varargin{1}(dim)];
-end
+box_size        =   varargin{1}.box_size .* varargin{2};
 
-for x = 1 : varargin{1}(1)
-    for y = 1 : varargin{1}(2)
-        for z = 1 : varargin{1}(3)
-            cell_now = z + varargin{1}(3) * (y-1) + varargin{1}(3) * varargin{1}(2) * (x-1);
-            for atom = 1 : num_cell_atoms
-                data_str(cell_now,atom,1) = (cell_now - 1) * num_cell_atoms + atom;
-                data_str(cell_now,atom,2) = cell_now;
-                data_str(cell_now,atom,3) = varargin{3}(atom);
-                data_str(cell_now,atom,4) = varargin{4}(atom);
-                data_str(cell_now,atom,5:7) = [x-1, y-1, z-1] * varargin{2} + 0.5 * varargin{2} * str_mtr(atom,:);
-            end
-        end
+for cell_now = 1 : varargin{1}.num_cells
+  	for atom = 1 : num_cell_atoms
+        data_str(cell_now,atom,1) = (cell_now - 1) * num_cell_atoms + atom;
+        data_str(cell_now,atom,2) = cell_now;
+        data_str(cell_now,atom,3) = varargin{3}(atom);
+      	data_str(cell_now,atom,4) = varargin{4}(atom);
+      	data_str(cell_now,atom,5:7) = varargin{1}.coord_cell(cell_now,:) * varargin{2} + 0.5 * varargin{2} * str_mtr(atom,:);
     end
 end
 
-
 % ---------------------Output-----------------------------
-varargout{1}.size_box       =   size_box;
+varargout{1}.box_size       =   box_size;
 varargout{1}.data_str       =   data_str;
 varargout{1}.num_cell_tot   =   num_cell_tot;
 varargout{1}.num_cell_atom  =   num_cell_atoms;
