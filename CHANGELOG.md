@@ -1,4 +1,10 @@
-## Unreleased [0.0.7]
+## Unreleased [0.0.8]
+
+## Added
+
+- **LammpsPhysicalProp**
+
+## [0.0.7] -12-05-2019
 
 ### Added
 
