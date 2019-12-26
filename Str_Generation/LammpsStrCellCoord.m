@@ -1,9 +1,8 @@
 function [varargout] = LammpsStrCellCoord(varargin)
-
 %% Description
 %
 % *Command*:
-% data_cell = LammpsCellCoord(cell_mode,cell_num)
+% data_cell = LammpsStrCellCoord(cell_mode,cell_num)
 %
 % *Input*:
 % cell_mode: String of Modes of struture in three direction. Sin and linear are
@@ -15,7 +14,7 @@ function [varargout] = LammpsStrCellCoord(varargin)
 % *Example*:
 % cell_mode = ['sin 2 linear linear'];
 % cell_num = [10 10 10];
-% data_cell = LammpsCellCoord(cell_mode,cell_num);
+% data_cell = LammpsStrCellCoord(cell_mode,cell_num);
 
 %% Supported List of Mode
 
@@ -86,7 +85,10 @@ end
 
 coord_cell(find(coord_cell(:,1)==-1),:)   =   [];
 num_cells_tot                   =   size(coord_cell,1);
-box_size                    =   [min(coord_cell);max(coord_cell)+1]';
+
+for dim = 1 : num_dims
+    box_size(dim,:) =   [min(coord_cell(:,dim));max(coord_cell(:,dim))+1]';
+end
 
 
 %% -----------------------Output-----------------------
@@ -94,5 +96,6 @@ box_size                    =   [min(coord_cell);max(coord_cell)+1]';
 varargout{1}.mode_input         =   mode_input;
 varargout{1}.coord_cell         =   coord_cell;
 varargout{1}.box_size           =   box_size;
+varargout{1}.num_cells_vec      =   varargin{2};
 varargout{1}.num_cells          =   num_cells_tot;
             

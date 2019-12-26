@@ -1,7 +1,7 @@
 function [varargout] = LammpsRDF(data_01,data_02,r_cut,num_bins)
 %% Description
 %
-% function [varargout] = LammpsRDF(r_cut,num_bins,data_01,data_02) 
+% function [varargout] = LammpsRDF(data_01,data_02,r_cut,num_bins) 
 %
 % Input:
 % data_01: structure of atom_01 created by LammpsReadDump(dump_name,t_sim,dump_prop,dump_col)

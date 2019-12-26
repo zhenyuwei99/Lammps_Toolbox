@@ -1,8 +1,25 @@
-## Unreleased [0.0.8]
+## Unreleased [0.0.9]
 
 ## Added
-
 - **LammpsPhysicalProp**
+
+## Changed
+- **LammpsStrGenerate**, cell_mode will be moved to function **LammpsStrCellCoord**
+
+## [0.0.8] -12-27-2019
+
+### Added
+
+- **LammpsStrSI3N4**
+- **LammpsStrCutPore**
+
+## Fixed
+
+- **LammpsStrWrite** now can write information of bonds and masses.
+
+## Changed
+
+- **LammpsStrCellCoord** will be used separately, instead of being called by function **LammpsStrGenerate**, to perform more manipulations on model.
 
 ## [0.0.7] -12-05-2019
 

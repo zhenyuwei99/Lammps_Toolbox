@@ -37,12 +37,12 @@ num_cell_tot        =   varargin{1}(1).num_cells;
 
 if varargin{3} == 1
     varargin{3} = ones(num_cell_atoms,1);
-    num_atom_type = 1;
+    num_atom_types = 1;
 elseif varargin{3} == 2;
     varargin{3} = 1:num_cell_atoms;
-    num_atom_type = num_cell_atoms;
+    num_atom_types = num_cell_atoms;
 else
-    num_atom_type = length(varargin{3});
+    num_atom_types = length(varargin{3});
 end
 
 if varargin{4} == 0
@@ -61,18 +61,18 @@ box_size        =   varargin{1}.box_size .* varargin{2};
 
 for cell_now = 1 : varargin{1}.num_cells
   	for atom = 1 : num_cell_atoms
-        data_str(cell_now,atom,1) = (cell_now - 1) * num_cell_atoms + atom;
-        data_str(cell_now,atom,2) = cell_now;
-        data_str(cell_now,atom,3) = varargin{3}(atom);
-      	data_str(cell_now,atom,4) = varargin{4}(atom);
-      	data_str(cell_now,atom,5:7) = varargin{1}.coord_cell(cell_now,:) * varargin{2} + 0.5 * varargin{2} * str_mtr(atom,:);
+        data_atom(cell_now,atom,1) = (cell_now - 1) * num_cell_atoms + atom;
+        data_atom(cell_now,atom,2) = cell_now;
+        data_atom(cell_now,atom,3) = varargin{3}(atom);
+      	data_atom(cell_now,atom,4) = varargin{4}(atom);
+      	data_atom(cell_now,atom,5:7) = varargin{1}.coord_cell(cell_now,:) * varargin{2} + 0.5 * varargin{2} * str_mtr(atom,:);
     end
 end
 
-% ---------------------Output-----------------------------
+%% ---------------------Output-----------------------------
 varargout{1}.box_size       =   box_size;
-varargout{1}.data_str       =   data_str;
+varargout{1}.data_atom      =   data_atom;
 varargout{1}.num_cell_tot   =   num_cell_tot;
 varargout{1}.num_cell_atom  =   num_cell_atoms;
-varargout{1}.num_atom_type  =   num_atom_type;
+varargout{1}.num_atom_types =   num_atom_types;
 varargout{1}.atom_style     =   atom_style;
