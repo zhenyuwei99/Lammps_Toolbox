@@ -35,20 +35,20 @@ function [data] = LammpsStrGenerate(varargin)
 % data_cell = LammpsStrCellCoord(cell_mode,cell_num);
 % atom_type = 1;
 % atom_charge = 0;
-% data = LammpsStrGenerate(data_cell,structure,,lattice_const,atom_type,atom_charge);
+% data = LammpsStrGenerate(data_cell,structure,lattice_const,atom_type,atom_charge);
 
 %% Judging Input
 
-if nargin <= 5
+if nargin <= 3
     atom_type = 1;
 else
-    atom_type = varargin{6};
+    atom_type = varargin{4};
 end
 
-if nargin <= 6
+if nargin <= 4
     atom_charge = 0;
 else
-    atom_charge = varargin{7};
+    atom_charge = varargin{5};
 end
 
 %% Supporting Information
@@ -62,7 +62,7 @@ str_id = find(lower(varargin{2}) == support_str);
 if str_id
     fprintf("Structure : %s\n",varargin{2})
     try
-        fprintf("Lattice constant: %-5.2f\n",varargin{5})
+        fprintf("Lattice constant: %-5.2f\n",varargin{3})
     catch
         pbc = varargin{3};
     end
@@ -79,9 +79,10 @@ end
 data_cell       =   varargin{1};
 
 try
-    func = ['data = LammpsStr',upper(char(support_str(str_id))),'(data_cell,varargin{5},atom_type,atom_charge);'];
+    pbc;
+    func = ['data = LammpsStr',upper(char(support_str(str_id))),'(data_cell,pbc);'];
     eval(func);
 catch
-    func = ['data = LammpsStr',upper(char(support_str(str_id))),'(data_cell,pbc);'];
+    func = ['data = LammpsStr',upper(char(support_str(str_id))),'(data_cell,varargin{3},atom_type,atom_charge);'];
     eval(func);
 end

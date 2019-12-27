@@ -38,6 +38,7 @@ str_mtr             =   [
 
 num_cell_tot        =   varargin{1}(1).num_cells;
 [num_cell_atoms,num_dims]       =   size(str_mtr);
+num_atoms           =   num_cell_tot*num_cell_atoms;
 
 if varargin{3} == 1
     varargin{3} = ones(num_cell_atoms,1);
@@ -57,7 +58,7 @@ end
 
 atom_style      =   'full';
 
-fprintf("# of atoms: %d\n",num_cell_tot*num_cell_atoms)
+fprintf("# of atoms: %d\n",num_atoms)
 
 %% Writing Data File
 
@@ -76,6 +77,7 @@ end
 %% ---------------------Output-----------------------------
 varargout{1}.box_size       =   box_size;
 varargout{1}.data_atom      =   data_atom;
+varargout{1}.num_atoms      =   num_atoms;
 varargout{1}.num_cell_tot   =   num_cell_tot;
 varargout{1}.num_cell_atom  =   num_cell_atoms;
 varargout{1}.num_atom_types =   num_atom_types;
