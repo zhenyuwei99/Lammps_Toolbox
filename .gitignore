@@ -1,9 +1,0 @@
-##ignore this file
-
-/target/
-Develop_test_file
-
-.gitignore
-
-# OS generated files #
-.DS_Store
