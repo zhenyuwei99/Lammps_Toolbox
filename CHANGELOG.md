@@ -2,17 +2,15 @@
 
 ## [0.0.9] -12-27-2019
 
-## Changed
+### Changed
 
 - Name of functions in folder **'Data_Analysis'** have all been applied with a prefix **Data**, e.g.: **LammpsRDF -> LammpsDataRDF**
 - **LammpsDataReadDump** won't call **readdump_all** function in folder **'Lammps_Internal'**.
+- **LammpsStrGenerate**, variables **'cell_mode'** and **'cell_num'** are  removed from parameter table.
 
-## Deleted
+### Deleted
 
 - Functions in folder **'Lammps_Internal'** are all been deleted. All functions performed by those functions before have been embedded into left functions.
-
-## Changed
-- **LammpsStrGenerate**, variables **'cell_mode'** and **'cell_num'** are  removed from parameter table.
 
 ## [0.0.8] -12-27-2019
 
