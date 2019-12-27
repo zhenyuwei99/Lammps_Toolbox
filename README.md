@@ -17,7 +17,7 @@ In Matlab:
 ```matlab
 pathtool
 ```
-Using **Adding Folder** to add **'Data_Analysis'** and **'Str_Generation'**x folders.
+Using **Adding Folder** to add **'Data_Analysis'** and **'Str_Generation'** folders.
 
 Now you can use all of functions.
 
