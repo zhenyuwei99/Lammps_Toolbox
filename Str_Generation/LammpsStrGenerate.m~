@@ -1,12 +1,7 @@
 function [data] = LammpsStrGenerate(varargin)
 %% Description
 % *Command*:
-%
-% Type1: LammpsStrGenerate(data_cell,structure,lattice_const,atom_type,atom_charge)
-% Type2: LammpsStrGenerate(data_cell,structure,pbc) 
-% Type1 is made for models with specific structure but no specific element,
-% Type2 is made for models with specific element and structure like Si3N4;
-%
+% LammpsStrGenerate(structure,lattice_const,atom_type,atom_charge)
 %
 % *Input* :
 %
