@@ -19,11 +19,11 @@
 - **LammpsStrSI3N4**
 - **LammpsStrCutPore**
 
-## Fixed
+### Fixed
 
 - **LammpsStrWrite** now can write information of bonds and masses.
 
-## Changed
+### Changed
 
 - **LammpsStrCellCoord** will be used separately, instead of being called by function **LammpsStrGenerate**, to perform more manipulations on model.
 
