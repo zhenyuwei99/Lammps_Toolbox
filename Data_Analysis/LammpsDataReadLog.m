@@ -1,7 +1,7 @@
-function [varargout] = LammpsReadLog(log_name,log_prop)
+function [varargout] = LammpsDataReadLog(log_name,log_prop)
 %% Description:
 % *Command*:
-% [varargout] = LammpsReadLog(log_name,log_prop);
+% [varargout] = LammpsDataReadLog(log_name,log_prop);
 %
 % *Input*:
 % log_name: name of log file.

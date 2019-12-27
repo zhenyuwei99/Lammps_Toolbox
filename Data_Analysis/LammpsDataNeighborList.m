@@ -1,19 +1,19 @@
-function [varargout] = LammpsNeighborList(varargin)
+function [varargout] = LammpsDataNeighborList(varargin)
 
 %% Description
 %
 % *Command*:
 %
-% neighbor_list = LammpsNeighborList(data,r_cut)
+% neighbor_list = LammpsDataNeighborList(data,r_cut)
 %
 % *Input* :
 %
-% data: structure created by LammpsReadDump(dump_name,dump_prop,dump_col,t_sim)
+% data: structure created by LammpsDataReadDump(dump_name,dump_prop,dump_col,t_sim)
 % r_cut: cutoff radius for neighbor list constrution
 
 %% Calculating scaled coordinates
 
-coord_scl               =   LammpsCoord2Scl(varargin{1});
+coord_scl               =   LammpsDataCoord2Scl(varargin{1});
 
 %% Constructing Neighbor List
 

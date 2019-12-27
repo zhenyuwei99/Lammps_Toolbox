@@ -1,13 +1,13 @@
-function [varargout]        =   LammpsPhysicalProp(varargin)
+function [varargout]        =   LammpsDataPhysicalProp(varargin)
 
 %% Description
 % Command:
 %
-% [varargout] =  LammpsPhysicalProp(data,mass);
+% [varargout] =  LammpsDataPhysicalProp(data,mass);
 %
 % Input:
 %
-% data: structure created by LammpsReadDump(dump_name,t_sim,dump_prop,dump_col)
+% data: structure created by LammpsDataReadDump(dump_name,t_sim,dump_prop,dump_col)
 % mass: mass of atom in data struture. Currently, only unique atom data
 % struture are supported.
 %
@@ -17,7 +17,7 @@ function [varargout]        =   LammpsPhysicalProp(varargin)
 
 %% Physical Variable Setting
 
-data_constants              =   LammpsConstants();
+data_constants              =   LammpsDataConstants();
 
 %% Calculating Momentum
 

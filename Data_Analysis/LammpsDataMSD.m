@@ -1,8 +1,8 @@
-function [varargout] = LammpsMSD(data,alpha)
+function [varargout] = LammpsDataMSD(data,alpha)
 
-% function [varargout] = LammpsMSD(name_dump,t_sim,col_coord,alpha)
+% function [varargout] = LammpsDataMSD(name_dump,t_sim,col_coord,alpha)
 % Input:
-% data: structure created by LammpsReadDump(dump_name,t_sim,dump_prop,dump_col)
+% data: structure created by LammpsDataReadDump(dump_name,t_sim,dump_prop,dump_col)
 % alpha: Ratio of num_steps_sim to num_steps_msd. Default: 10
 
 if nargin <= 1
@@ -11,7 +11,7 @@ end
 
 %% Handling PBC issues
 
-coord_corr              =   LammpsPBC(data);
+coord_corr              =   LammpsDataPBC(data);
 
 %% Calculating MSD
 

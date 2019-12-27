@@ -1,13 +1,13 @@
-function [coord_scl] = LammpsCoord2Scl(varargin)
+function [coord_scl] = LammpsDataCoord2Scl(varargin)
 %% Description
 % 
 % *Command*:
 %
-% coord_scl = LammpsCoord2Scl(data);
+% coord_scl = LammpsDataCoord2Scl(data);
 %
 % *Input*:
 %
-% data: structure created by LammpsReadDump(dump_name,dump_prop,dump_col,t_sim)
+% data: structure created by LammpsDataReadDump(dump_name,dump_prop,dump_col,t_sim)
 
 %% Calculating Scaled Coord
 

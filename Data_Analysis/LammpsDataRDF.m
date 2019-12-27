@@ -1,11 +1,11 @@
-function [varargout] = LammpsRDF(data_01,data_02,r_cut,num_bins)
+function [varargout] = LammpsDataRDF(data_01,data_02,r_cut,num_bins)
 %% Description
 %
-% function [varargout] = LammpsRDF(data_01,data_02,r_cut,num_bins) 
+% function [varargout] = LammpsDataRDF(data_01,data_02,r_cut,num_bins) 
 %
 % Input:
-% data_01: structure of atom_01 created by LammpsReadDump(dump_name,t_sim,dump_prop,dump_col)
-% data_02: structure of atom_02 created by LammpsReadDump(dump_name,t_sim,dump_prop,dump_col)
+% data_01: structure of atom_01 created by LammpsDataReadDump(dump_name,t_sim,dump_prop,dump_col)
+% data_02: structure of atom_02 created by LammpsDataReadDump(dump_name,t_sim,dump_prop,dump_col)
 % r_cut: cut off radius in RDF calculation
 % num_bins: # of bins in RDF calculation
 
@@ -15,8 +15,8 @@ function [varargout] = LammpsRDF(data_01,data_02,r_cut,num_bins)
 
 %% Calculating Scaled Coordinate
 
-coord_scl_01            =   LammpsCoord2Scl(data_01);
-coord_scl_02            =   LammpsCoord2Scl(data_02);
+coord_scl_01            =   LammpsDataCoord2Scl(data_01);
+coord_scl_02            =   LammpsDataCoord2Scl(data_02);
 
 %% Variables setting
 

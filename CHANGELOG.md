@@ -1,10 +1,18 @@
-## Unreleased [0.0.9]
+## Unreleased [0.1.0]
 
-## Added
-- **LammpsPhysicalProp**
+## [0.0.9] -12-27-2019
 
 ## Changed
-- **LammpsStrGenerate**, cell_mode will be moved to function **LammpsStrCellCoord**
+
+- Name of functions in folder **'Data_Analysis'** have all been applied with a prefix **Data**, e.g.: **LammpsRDF -> LammpsDataRDF**
+- **LammpsDataReadDump** won't call **readdump_all** function in folder **'Lammps_Internal'**.
+
+## Deleted
+
+- Functions in folder **'Lammps_Internal'** are all been deleted. All functions performed by those functions before have been embedded into left functions.
+
+## Changed
+- **LammpsStrGenerate**, variables **'cell_mode'** and **'cell_num'** are  removed from parameter table.
 
 ## [0.0.8] -12-27-2019
 

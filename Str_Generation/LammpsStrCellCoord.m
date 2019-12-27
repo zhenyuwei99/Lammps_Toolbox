@@ -12,7 +12,7 @@ function [varargout] = LammpsStrCellCoord(varargin)
 % cell_num: num of cells in each direction
 %
 % *Example*:
-% cell_mode = ['sin 2 linear linear'];
+% cell_mode = ['sin 2 l l'];
 % cell_num = [10 10 10];
 % data_cell = LammpsStrCellCoord(cell_mode,cell_num);
 

@@ -1,12 +1,12 @@
-function [varargout] = LammpsConstants()
+function [varargout] = LammpsDataConstants()
 
 %% Description
 %
 % *Command*:
 %
-% data_constants = LammpsConstants();
+% data_constants = LammpsDataConstants();
 %
-% LammpsConstants function is used to generate a struture which contain all
+% LammpsDataConstants function is used to generate a struture which contain all
 % posible physical constants could be used in data analysis.
 
 %% Squeeze Physical constants, energy converter, mass converter, length conveter, time converter

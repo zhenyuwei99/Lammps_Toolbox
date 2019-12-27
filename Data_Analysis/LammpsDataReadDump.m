@@ -1,42 +1,76 @@
-function [varargout]    =   LammpsReadDump(dump_name,dump_prop,dump_col,t_sim)
+function [varargout]    =   LammpsDataReadDump(dump_name,dump_prop,dump_col,t_sim)
 
 %% Description
 % Command:
-% [varargout]    =   LammpsReadDump(dump_name,dump_prop,dump_col,t_sim)
+% [varargout]    =   LammpsDataReadDump(dump_name,dump_prop,dump_col,t_sim)
 %
-% Input:
+% *Input*:
 % dump_name: name of dump file
 % dump_prop: String of properties in the dump file
 % dump_col: The first column corresponds to each properties in dump_type
 % t_sim: simulation time. Unit: ns
-
-% Example
+%
+% *Example*:
 % dump_prop = ['id type coord vel'];
 % dump_col = [1 2 3 6];
+% 
+% *Thanks*:
+% A lot of inspirations of code in 'Reading Dump File' part is absorbed from
+% codes of Arun K. Subramaniyan.
+%
+% sarunkarthi@gmail.com
+% http://web.ics.purdue.edu/~asubrama/pages/Research_Main.htm
+% School of Aeronautics and Astronautics
+% Purdue University, West Lafayette, IN - 47907, USA.
 
-%% Reading data
+%% Reading Dump File
 
-data                    =   readdump_all(dump_name);
+try
+    dump = fopen(dump_name,'r');
+catch
+    error('Dumpfile not found');
+end
+
+output_id           =   1; 
+progress_flag       =   0;      % Flag determing when data recording starts
+
+while feof(dump) == 0
+    current_line = fgetl(dump);   
+    if (strncmp(current_line,'ITEM: TIMESTEP',numel('ITEM: TIMESTEP')))
+        data.timestep(output_id) = str2num(fgetl(dump));
+    else
+        if (strncmp(current_line,'ITEM: NUMBER OF ATOMS',numel('ITEM: NUMBER OF ATOMS')))
+            data.num_atoms(output_id) = str2num(fgetl(dump)); 
+        else
+            if (strncmp(current_line,'ITEM: BOX BOUNDS',numel('ITEM: BOX BOUNDS')))
+                for dim = 1 : 3
+                    data.box_range(dim,output_id,:) = str2num(fgetl(dump));
+                end
+            else
+                if (strncmp(current_line,'ITEM: ATOMS',numel('ITEM: ATOMS')))
+                    for atom = 1 : data.num_atoms(output_id)
+                        data.atom_data(atom,:,output_id) = str2num(fgetl(dump));
+                    end
+                    output_id = output_id + 1;
+                end
+            end
+        end
+    end
+end
 
 %% Simulation   variable
 
 dump_prop               =   split(dump_prop);
 num_props               =   length(dump_col);
-num_atoms               =   size(data.atom_data,1);
-num_col_tot             =   size(data.atom_data,2);
-num_steps_sim           =   size(data.atom_data,3);
+[num_atoms,num_col_tot,num_steps_sim]   =   size(data.atom_data);
 num_dims                =   3;
 
 time_sim                =   [1:num_steps_sim] ./ (num_steps_sim / t_sim);
 
-box_range               =   zeros(num_dims,2);
-box_range(1,:)          =   mean(data.x_bound);
-box_range(2,:)          =   mean(data.y_bound);
-box_range(3,:)          =   mean(data.z_bound);
-box_size_time           =   zeros(num_dims,num_steps_sim);
-box_size_time(1,:,:)    =   data.x_bound(:,2) - data.x_bound(:,1);
-box_size_time(2,:,:)    =   data.y_bound(:,2) - data.y_bound(:,1);
-box_size_time(3,:,:)    =   data.z_bound(:,2) - data.z_bound(:,1);
+for dim = 1 : num_dims
+    box_range(dim,:)        =   mean(squeeze(data.box_range(dim,:,:)));
+    box_size_time(dim,:,:)  =   data.box_range(dim,:,2) - data.box_range(dim,:,1);
+end
 box_size_avg            =   box_range(:,2) - box_range(:,1);    % 3-d vector of box size
 box_diag                =   diag(box_size_avg);
 box_volume              =   1;

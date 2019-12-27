@@ -1,9 +1,9 @@
-function [varargout] = LammpsDiffusion(data,alpha)
+function [varargout] = LammpsDataDiffusion(data,alpha)
 
-% function [varargout] = LammpsDiffusion(data,alpha)
+% function [varargout] = LammpsDataDiffusion(data,alpha)
 %
 % Input:
-% data: structure created by LammpsReadDump(dump_name,t_sim,dump_prop,dump_col)
+% data: structure created by LammpsDataReadDump(dump_name,t_sim,dump_prop,dump_col)
 % alpha: Ratio of num_steps_sim to num_steps_msd. Default: 10
 %
 
@@ -13,7 +13,7 @@ end
 
 %% MSD caculation
 
-data_msd                    =   LammpsMSD(data,alpha);
+data_msd                    =   LammpsDataMSD(data,alpha);
 
 %% Diffusion Calculation
 
