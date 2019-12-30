@@ -1,5 +1,13 @@
 ## Unreleased [0.1.0]
 
+### Added
+
+- **LammpsStrTIP3P**
+- **LammpsStrSPC**
+- **LammpsStrGRAPHENE**
+- **LammpsStrGRAPHENE_ORT**
+- **LammpsStrSI3N4_ORT**
+
 ## [0.0.9] -12-27-2019
 
 ### Changed

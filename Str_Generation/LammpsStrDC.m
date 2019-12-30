@@ -28,37 +28,46 @@ function [varargout] = LammpsStrDC(varargin)
 
 %% Stuture Data
 
+lattice_const       =   varargin{2};
+
 str_mtr             =   [
                         0 0 0
-                        0 1 1
-                        1 0 1
-                        1 1 0
-                        0.5 0.5 0.5
-                        0.5 1.5 1.5
-                        1.5 0.5 1.5
-                        1.5 1.5 0.5
-                        ];
+                        0 0.5 0.5
+                        0.5 0 0.5
+                        0.5 0.5 0
+                        0.25 0.25 0.25
+                        0.25 0.75 0.75
+                        0.75 0.25 0.75
+                        0.75 0.75 0.25
+                        ];              % Normalized vector of atom coordinate in cell
+                    
+cell_vector         =   [
+                        lattice_const       0           0
+                        0           lattice_const    0
+                        0           0           lattice_const;
+                        ];              % Vectors that determining cell size
 
 %% Reading Input
+data_cell       =   varargin{1};
 
-num_cell_tot        =   varargin{1}(1).num_cells;
+num_cell_tot        =   data_cell(1).num_cells;
 [num_cell_atoms,num_dims]       =   size(str_mtr);
 num_atoms           =   num_cell_tot*num_cell_atoms;
 
 if varargin{3} == 1
-    varargin{3} = ones(num_cell_atoms,1);
+    atom_type = ones(num_cell_atoms,1);
     num_atom_types = 1;
 elseif varargin{3} == 2;
-    varargin{3} = 1:num_cell_atoms;
+    atom_type = 1:num_cell_atoms;
     num_atom_types = num_cell_atoms;
 else
-    num_atom_types = length(varargin{3});
+    num_atom_types = length(atom_type);
 end
 
 if varargin{4} == 0
-    varargin{4} = zeros(num_cell_atoms,1);
+    atom_charge = zeros(num_cell_atoms,1);
 elseif length(varargin{4}) == 1
-    varargin{4} = ones(num_cell_atoms,1) * varargin{4};
+    atom_charge = ones(num_cell_atoms,1) * varargin{4};
 end
 
 atom_style      =   'full';
@@ -67,23 +76,27 @@ fprintf("# of atoms: %d\n",num_atoms)
 
 %% Writing Data File
 
-box_size        =   varargin{1}.box_size .* varargin{2};
+box_size        =   data_cell.box_size .* lattice_const;
 
-for cell_now = 1 : varargin{1}.num_cells
+for cell_now = 1 : data_cell.num_cells
   	for atom = 1 : num_cell_atoms
         data_atom(cell_now,atom,1) = (cell_now - 1) * num_cell_atoms + atom;
         data_atom(cell_now,atom,2) = cell_now;
-        data_atom(cell_now,atom,3) = varargin{3}(atom);
-      	data_atom(cell_now,atom,4) = varargin{4}(atom);
-      	data_atom(cell_now,atom,5:7) = varargin{1}.coord_cell(cell_now,:) * varargin{2} + 0.5 * varargin{2} * str_mtr(atom,:);
+        data_atom(cell_now,atom,3) = atom_type(atom);
+      	data_atom(cell_now,atom,4) = atom_charge(atom);
+      	data_atom(cell_now,atom,5:7) = data_cell.coord_cell(cell_now,:) * cell_vector  + str_mtr(atom,:) * cell_vector;
     end
 end
 
 %% ---------------------Output-----------------------------
+% Box Info
 varargout{1}.box_size       =   box_size;
+% Atom Info
 varargout{1}.data_atom      =   data_atom;
+varargout{1}.atom_style     =   atom_style;
 varargout{1}.num_atoms      =   num_atoms;
+varargout{1}.num_atom_types =   num_atom_types;
+% Cell Info
 varargout{1}.num_cell_tot   =   num_cell_tot;
 varargout{1}.num_cell_atom  =   num_cell_atoms;
-varargout{1}.num_atom_types =   num_atom_types;
-varargout{1}.atom_style     =   atom_style;
+
