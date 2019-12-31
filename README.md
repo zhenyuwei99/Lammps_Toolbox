@@ -256,7 +256,7 @@ data_wat_up         = LammpsStrMove(data_wat_up,[15 4 9]);
 data_wat_low        = LammpsStrGenerate(data_cell_wat,'tip3p');
 data_wat_low        = LammpsStrMove(data_wat_low,[15 4 -2]);
 
-data_sum            = LammpsStrCat(data_si3n4,data_wat_up,data_wat_low);
+data_sum            = LammpsStrCat(data_wat_up,data_wat_low,data_si3n4);
 
 LammpsStrWrite(data_sum,'test.data');
 ```
