@@ -242,6 +242,7 @@ data = LammpsStrMove(data,move_vec);
 
 **Example**
 ```matlab
+% A Silicon-Nitride plane with a 5 Angstrom nanopore and TIP3P water molecules will be generated with this file
 data_cell_si3n4     = LammpsStrCellCoord([6 5 3]);
 data_cell_wat       = LammpsStrCellCoord([10 9 10]);
 
