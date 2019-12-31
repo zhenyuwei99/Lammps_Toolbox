@@ -114,7 +114,7 @@ Current supported properties:
 ## Str_Generation
 
 <div  align="center">   
-<img src="https://github.com/zhenyuwei99/Lammps_Toolbox/raw/master/Images/README/Github_StrGeneration.png" width = "700" height = "500" alt="Data_Analysis Flowchart" align=center />
+<img src="https://github.com/zhenyuwei99/Lammps_Toolbox/raw/master/Images/README/Github_StrGeneration.png" width = "700" height = "700" alt="Data_Analysis Flowchart" align=center />
 </div>   
 
 ### [LammpsStrCellCoord(cell_vec)](https://github.com/zhenyuwei99/Lammps_Toolbox/blob/master/Str_Generation/LammpsStrCellCoord.m)
