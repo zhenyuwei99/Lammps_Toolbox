@@ -27,7 +27,7 @@ Matlab functions which can analysis LAMMPS data and generate LAMMPS data file.
 ## Data_Analysis
 
 <div  align="center">   
-<img src="https://github.com/zhenyuwei99/Lammps_Toolbox/raw/master/Images/README/Github_DataAnalysis.png" width = "400" height = "320" alt="Data_Analysis Flowchart" align=center />
+<img src="https://github.com/zhenyuwei99/Lammps_Toolbox/raw/master/Images/README/Github_DataAnalysis.png" width = "500" height = "320" alt="Data_Analysis Flowchart" align=center />
 </div>   
 
 ### [LammpsDataReadDump(dump_name,dump_prop,dump_col,t_sim)](https://github.com/zhenyuwei99/Lammps_Toolbox/blob/master/Data_Analysis/LammpsDataReadDump.m)
