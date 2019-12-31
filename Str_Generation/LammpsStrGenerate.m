@@ -36,7 +36,7 @@ function [data] = LammpsStrGenerate(varargin)
 % pbc           :   determining which boundary will be applied with 
 %                   PBC condition for bonds definitions.
 %
-% *Example*:
+% *Example 1*:
 %
 % structure = "bcc"; % Note: this variable should be string
 % cell_mode = ['sin 2 3 5 l l']; 
@@ -45,6 +45,13 @@ function [data] = LammpsStrGenerate(varargin)
 % atom_type = 1;
 % atom_charge = 0;
 % data = LammpsStrGenerate(data_cell,structure,lattice_const,atom_type,atom_charge);
+% 
+% *Example 2*:
+%
+% structure = 'si3n4';
+% cell_vec = [4 4 3];
+% data_cell = LammpsStrCellCoord(structure,cell_vec);
+% data = LammpsStrGenerate(data_cell,structure,['x y']);
 
 %% Reading Input
 
@@ -73,7 +80,8 @@ support_judge   =   0;
 str_id = find(lower(structure) == support_str);
 
 if str_id
-    fprintf("Structure : %s\n",structure)
+    fprintf('\n-------------------------\n')
+    fprintf("\nStructure : %s\n",structure)
     try
         if isa(varargin{3},'float')  
             fprintf("Lattice constant: %-5.2f\n",varargin{3})
@@ -92,10 +100,10 @@ if support_judge == 0
 end
 
 %% Calling corresponding Function
-
+%{
 func = ['data = LammpsStr',upper(char(support_str(str_id))),'(data_cell,pbc);'];
     eval(func);
-%{
+%}
 try
     func = ['data = LammpsStr',upper(char(support_str(str_id))),'(data_cell,pbc);'];
     eval(func);
@@ -103,4 +111,11 @@ catch
     func = ['data = LammpsStr',upper(char(support_str(str_id))),'(data_cell,varargin{3},atom_type,atom_charge);'];
     eval(func);
 end
-%}
+
+%% Visuliaztion of box size
+
+fprintf('\nBox_size:\n')
+for dim = 1 : size(data.box_size,1)
+    fprintf('%s:\t%.2f\t%.2f\n',dim+119,data.box_size(dim,1),data.box_size(dim,2));
+end
+fprintf('\n-------------------------\n')

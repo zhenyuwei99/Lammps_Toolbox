@@ -38,6 +38,13 @@ cell_vector         =   [
                     
 cell_vector         =   diag(cell_vector);  % Vectors that determining cell size
 
+%% Parameters setting
+
+% Unit: Kcal/mol
+para.pair_coeff     =   [0.0460	0.4000
+                         0.1521	3.1507];
+para.bond_coeff     =   [450 bond_length];
+para.angle_coeff    =   [55 angle];
 
 %% Setting Variables
 
@@ -59,7 +66,7 @@ box_vector(3,1) =   0;
 box_vector(3,2) =   0;
 box_size        =   box_vector * data_cell.box_size ;
 
-box_iter        =   [
+box_tilt        =   [
     cell_vector(2,1) * data_cell.num_cells_vec(2)
     cell_vector(3,1) * data_cell.num_cells_vec(3)
     cell_vector(3,2) * data_cell.num_cells_vec(3)];  % xy xz yz for box arrangement
@@ -67,11 +74,12 @@ box_iter        =   [
 
 for cell_now = 1 : data_cell.num_cells
   	for atom = 1 : num_cell_atoms
-        data_atom(cell_now,atom,1) = (cell_now - 1) * num_cell_atoms + atom;
-        data_atom(cell_now,atom,2) = cell_now;
-        data_atom(cell_now,atom,3) = atom_type(atom);
-      	data_atom(cell_now,atom,4) = atom_charge(atom);
-      	data_atom(cell_now,atom,5:7) = data_cell.coord_cell(cell_now,:) * cell_vector  + str_mtr(atom,:) * cell_vector;
+        id_now = (cell_now - 1) * num_cell_atoms + atom;
+        data_atom(id_now,1) = (cell_now - 1) * num_cell_atoms + atom;
+        data_atom(id_now,2) = cell_now;
+        data_atom(id_now,3) = atom_type(atom);
+      	data_atom(id_now,4) = atom_charge(atom);
+      	data_atom(id_now,5:7) = data_cell.coord_cell(cell_now,:) * cell_vector  + str_mtr(atom,:) * cell_vector;
     end
 end
 
@@ -80,20 +88,20 @@ end
 % each elements in structure data_bond is corresponed to elements in bonds
 % parts of data file in each lines.
 
-bond_id = 1;
+bond_id = 0;
 for cell_now = 1 : data_cell.num_cells
+    bond_id = bond_id + 1;
     id_now = (cell_now - 1) * num_cell_atoms + 2; % Id of oxygen atom in each cell;
-  	data_bond.id(bond_id) = bond_id;
-    data_bond.type(bond_id) = 1;
-    data_bond.atom(bond_id,:) = [id_now,id_now-1];
+  	data_bond(bond_id,1) = bond_id;
+    data_bond(bond_id,2) = 1;
+    data_bond(bond_id,3:4) = [id_now,id_now-1];
     bond_id = bond_id + 1;
-    data_bond.id(bond_id) = bond_id;
-    data_bond.type(bond_id) = 1;
-    data_bond.atom(bond_id,:) = [id_now,id_now+1];
-    bond_id = bond_id + 1;
+    data_bond(bond_id,1) = bond_id;
+    data_bond(bond_id,2) = 1;
+    data_bond(bond_id,3:4) = [id_now,id_now+1];
 end
         
-num_bonds       =   bond_id - 1;
+num_bonds       =   bond_id;
 num_bond_types  =   1;
 
 %% Writing Angles Files
@@ -102,27 +110,19 @@ num_bond_types  =   1;
 % parts of data file in each lines.
 
 for cell_now = 1 : data_cell.num_cells
-    data_angle.id(cell_now) = cell_now;
-    data_angle.type(cell_now) = 1;
+    data_angle(cell_now,1) = cell_now;
+    data_angle(cell_now,2) = 1;
     id_now = (cell_now-1) * num_cell_atoms + 1;
-    data_angle.atom(cell_now,:) = [id_now,id_now+1,id_now+2];
+    data_angle(cell_now,3:5) = [id_now,id_now+1,id_now+2];
 end
 
 num_angles      =   data_cell.num_cells;
 num_angle_types =   1;
 
-%% Parameters setting
-
-% Unit: Kcal/mol
-para.pair_coeff     =   [0.0460	0.4000
-                         0.1521	3.1507];
-para.bond_coeff     =   [450 bond_length];
-para.angle_coeff    =   [55 angle];
-
 %% ---------------------Output-----------------------------
 % Box Info
 varargout{1}.box_size       =   box_size;
-varargout{1}.box_iter       =   box_iter;
+varargout{1}.box_tilt       =   box_tilt;
 % Para Info
 varargout{1}.para           =   para;
 % Atom Info
@@ -132,9 +132,6 @@ varargout{1}.atom_style     =   atom_style;
 varargout{1}.atom_mass      =   atom_mass;
 varargout{1}.atom_name      =   atom_name;
 varargout{1}.num_atom_types =   num_atom_types;
-% Cell Info
-varargout{1}.num_cell_tot   =   num_cell_tot;
-varargout{1}.num_cell_atom  =   num_cell_atoms;
 % Bond Info
 varargout{1}.data_bond      =   data_bond;
 varargout{1}.num_bonds      =   num_bonds;

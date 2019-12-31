@@ -1,12 +1,25 @@
-## Unreleased [0.1.0]
+## Unreleased [0.1.1]
+
+## [0.1.0] -12-31-2019 **Happy New Year!**
 
 ### Added
 
 - **LammpsStrTIP3P**
 - **LammpsStrSPC**
-- **LammpsStrGRAPHENE**
-- **LammpsStrGRAPHENE_ORT**
-- **LammpsStrSI3N4_ORT**
+- **LammpsStrSelectAtom**
+- **LammpsStrDeletAtom**
+- **LammpsStrSelectCell**
+- **LammpsStrDeletCell**
+- **LammpsStrMove**
+- **LammpsStrCat**
+
+### Changed
+
+- **LammpsCellCoord** won't support 'sin' mode. Only variable 'cell_vec' is needed to call this function. Other features will be complete through **LammpsStrSelectCell** and **LammpsStrDeleteCell** functions.
+
+### Deleted
+
+- **LammpsStrCutPore** will be replaced with **LammpsStrDeleteCell**
 
 ## [0.0.9] -12-27-2019
 

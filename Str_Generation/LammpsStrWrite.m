@@ -28,7 +28,7 @@ try     % Detecting whether bonds information are contained in data.
     desc_data(7)   =  [data.num_bond_types];
 end
 
-try     % Detecting whether bonds information are contained in data.
+try     % Detecting whether angles information are contained in data.
     desc_data(3)   =  [data.num_angles];
     desc_data(8)   =  [data.num_angle_types];
 end
@@ -66,7 +66,7 @@ fprintf(fidout,'%f  %f \t%s\n',data.box_size(2,1),data.box_size(2,2),'ylo yhi');
 fprintf(fidout,'%f  %f \t%s\n\n',data.box_size(3,1),data.box_size(3,2),'zlo zhi');
 
 try
-    fprintf(fidout,'%f\t%f\t%f \t%s\n',data.box_iter(1),data.box_iter(2),data.box_iter(3),'xy xz yz');
+    fprintf(fidout,'%f\t%f\t%f \t%s\n',data.box_tilt(1),data.box_tilt(2),data.box_tilt(3),'xy xz yz');
 end
 
 try
@@ -106,12 +106,10 @@ end
 
 fprintf(fidout,'\n\nAtoms # %s\n',data.atom_style);
 
-for cell_now = 1:data.num_cell_tot
-    for atom = 1:data.num_cell_atom
+for atom = 1 : data.num_atoms
         fprintf(fidout,'\n%-5d %-5d %-5d %-8.4f %-10f %-10f %-10f',...
-        data.data_atom(cell_now,atom,1),data.data_atom(cell_now,atom,2),data.data_atom(cell_now,atom,3),...
-        data.data_atom(cell_now,atom,4),data.data_atom(cell_now,atom,5),data.data_atom(cell_now,atom,6),data.data_atom(cell_now,atom,7));
-    end
+        data.data_atom(atom,1),data.data_atom(atom,2),data.data_atom(atom,3),...
+        data.data_atom(atom,4),data.data_atom(atom,5),data.data_atom(atom,6),data.data_atom(atom,7));
 end
 
 %% Bonds Information
@@ -124,11 +122,10 @@ catch
 end
 
 if flag == 1
-    id_now = 1;
     fprintf(fidout,'\n\nBonds\n\n');
     for bond = 1 : data.num_bonds
-        fprintf(fidout,'%i\t%i\t%i\t%i\n',data.data_bond.id(bond),data.data_bond.type(bond),...
-            data.data_bond.atom(bond,1),data.data_bond.atom(bond,2));
+        fprintf(fidout,'%i\t%i\t%i\t%i\n',data.data_bond(bond,1),data.data_bond(bond,2),...
+            data.data_bond(bond,3),data.data_bond(bond,4));
     end
 end
 
@@ -142,10 +139,9 @@ catch
 end
 
 if flag == 1
-    id_now = 1;
     fprintf(fidout,'\n\nAngles\n\n');
     for angle = 1 : data.num_angles
-        fprintf(fidout,'%i\t%i\t%i\t%i\t%i\n',data.data_angle.id(angle),data.data_angle.type(angle),...
-            data.data_angle.atom(angle,1),data.data_angle.atom(angle,2),data.data_angle.atom(angle,3));
+        fprintf(fidout,'%i\t%i\t%i\t%i\t%i\n',data.data_angle(angle,1),data.data_angle(angle,2),...
+            data.data_angle(angle,3),data.data_angle(angle,4),data.data_angle(angle,5));
     end
 end

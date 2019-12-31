@@ -74,11 +74,12 @@ box_size        =   data_cell.box_size .* lattice_const;
 
 for cell_now = 1 : data_cell.num_cells
   	for atom = 1 : num_cell_atoms
-        data_atom(cell_now,atom,1) = (cell_now - 1) * num_cell_atoms + atom;
-        data_atom(cell_now,atom,2) = cell_now;
-        data_atom(cell_now,atom,3) = atom_type(atom);
-      	data_atom(cell_now,atom,4) = atom_charge(atom);
-      	data_atom(cell_now,atom,5:7) = data_cell.coord_cell(cell_now,:) * cell_vector  + str_mtr(atom,:) * cell_vector;
+        id_now = (cell_now - 1) * num_cell_atoms + atom;
+        data_atom(id_now,1) = (cell_now - 1) * num_cell_atoms + atom;
+        data_atom(id_now,2) = cell_now;
+        data_atom(id_now,3) = atom_type(atom);
+      	data_atom(id_now,4) = atom_charge(atom);
+      	data_atom(id_now,5:7) = data_cell.coord_cell(cell_now,:) * cell_vector  + str_mtr(atom,:) * cell_vector;
     end
 end
 
@@ -90,7 +91,3 @@ varargout{1}.data_atom      =   data_atom;
 varargout{1}.atom_style     =   atom_style;
 varargout{1}.num_atoms      =   num_atoms;
 varargout{1}.num_atom_types =   num_atom_types;
-% Cell Info
-varargout{1}.num_cell_tot   =   num_cell_tot;
-varargout{1}.num_cell_atom  =   num_cell_atoms;
-

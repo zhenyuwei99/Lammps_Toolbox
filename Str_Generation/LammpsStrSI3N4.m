@@ -70,7 +70,7 @@ box_vector(3,1) =   0;
 box_vector(3,2) =   0;
 box_size        =   box_vector * data_cell.box_size ;
 
-box_iter        =   [
+box_tilt        =   [
     cell_vector(2,1) * data_cell.num_cells_vec(2)
     cell_vector(3,1) * data_cell.num_cells_vec(3)
     cell_vector(3,2) * data_cell.num_cells_vec(3)];  % xy xz yz for box arrangement
@@ -78,23 +78,18 @@ box_iter        =   [
 
 for cell_now = 1 : data_cell.num_cells
   	for atom = 1 : num_cell_atoms
-        data_atom(cell_now,atom,1) = (cell_now - 1) * num_cell_atoms + atom;
-        data_atom(cell_now,atom,2) = cell_now;
-        data_atom(cell_now,atom,3) = atom_type(atom);
-      	data_atom(cell_now,atom,4) = atom_charge(atom);
-      	data_atom(cell_now,atom,5:7) = data_cell.coord_cell(cell_now,:) * cell_vector  + str_mtr(atom,:) * cell_vector;
+        id_now = (cell_now - 1) * num_cell_atoms + atom;
+        data_atom(id_now,1) = (cell_now - 1) * num_cell_atoms + atom;
+        data_atom(id_now,2) = cell_now;
+        data_atom(id_now,3) = atom_type(atom);
+      	data_atom(id_now,4) = atom_charge(atom);
+      	data_atom(id_now,5:7) = data_cell.coord_cell(cell_now,:) * cell_vector  + str_mtr(atom,:) * cell_vector;
     end
 end
-
 
 %% Writing Bonds File
 
-for cell_now = 1 : data_cell.num_cells
-  	for atom = 1 : num_cell_atoms
-        id_now      =   (cell_now - 1) * num_cell_atoms + atom;
-        coord(id_now,:)   =   data_atom(cell_now,atom,5:7);
-    end
-end
+coord   =   data_atom(:,5:7);
 
 box_diag = diag(box_size(:,2)-box_size(:,1));
 
@@ -114,7 +109,7 @@ end
 
 neighbor_matric = neighbor_matric * diag(data_cell.num_cells_vec);
 
-bond_id = 1;
+num_bonds = 0;
 for atom_01 = 1 : num_atoms
     for atom_02 = atom_01+1 : num_atoms
         r_diff = (coord(atom_02,:) - coord(atom_01,:));
@@ -122,21 +117,20 @@ for atom_01 = 1 : num_atoms
         dist = sqrt(sum(r_diff.^2,2));
         judge = dist< r_cut & dist~=0; 
         if find(judge==1) 
-            data_bond.id(bond_id) = bond_id;
-            data_bond.type(bond_id) = 1;
-            data_bond.atom(bond_id,:) = [atom_01,atom_02];
-            bond_id = bond_id+1;
+            num_bonds = num_bonds+1;
+            data_bond(num_bonds,1) = num_bonds;
+            data_bond(num_bonds,2) = 1;
+            data_bond(num_bonds,3:4) = [atom_01,atom_02];
         end
     end
 end
 
 num_bond_types  =   1;
-num_bonds       =   bond_id - 1;
 
 %% ---------------------Output-----------------------------
 % Box Info
 varargout{1}.box_size       =   box_size;
-varargout{1}.box_iter       =   box_iter;
+varargout{1}.box_tilt       =   box_tilt;
 % Atom Info
 varargout{1}.data_atom      =   data_atom;
 varargout{1}.num_atoms      =   num_atoms;
@@ -144,9 +138,6 @@ varargout{1}.atom_style     =   atom_style;
 varargout{1}.atom_mass      =   atom_mass;
 varargout{1}.atom_name      =   atom_name;
 varargout{1}.num_atom_types =   num_atom_types;
-% Cell Info
-varargout{1}.num_cell_tot   =   num_cell_tot;
-varargout{1}.num_cell_atom  =   num_cell_atoms;
 % Bond Info
 varargout{1}.data_bond      =   data_bond;
 varargout{1}.num_bonds      =   num_bonds;
