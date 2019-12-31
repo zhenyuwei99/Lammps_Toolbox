@@ -1,8 +1,6 @@
 ## Unreleased [0.1.1]
 
-## [0.1.0] -12-31-2019        
-
-**:bowtie: Happy New Year!**
+## [0.1.0] -12-31-2019        **:bowtie: Happy New Year!:bowtie:**
 
 ### Added
 
