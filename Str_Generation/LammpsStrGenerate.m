@@ -3,7 +3,7 @@ function [data] = LammpsStrGenerate(varargin)
 % *Command*:
 %
 % Type1: LammpsStrGenerate(data_cell,structure,lattice_const,atom_type,atom_charge)
-% Type2: LammpsStrGenerate(data_cell,structure,pbc) 
+% Type2: LammpsStrGenerate(data_cell,structure,pbc)
 % Type1 is made for models with specific structure but no specific element,
 % Type2 is made for models with specific element and structure like Si3N4;
 %
@@ -26,26 +26,26 @@ function [data] = LammpsStrGenerate(varargin)
 %
 % atom_charge   :   *Case 1* : atom_charge = 0; All atom charge will be set
 %                   to 0.
-%                   *Case 2* : atom_charge single number. All atom will be set 
+%                   *Case 2* : atom_charge single number. All atom will be set
 %                   to the same charge.
 %                   *Case 3* : atom_charge is a matric. Each atom will be set
 %                   to a charge correspond number in matric. Same as Case 3
 %                   of atom_type, length of matric should be equal to
 %                   number of atoms in cell
 %
-% pbc           :   determining which boundary will be applied with 
+% pbc           :   determining which boundary will be applied with
 %                   PBC condition for bonds definitions.
 %
 % *Example 1*:
 %
 % structure = "bcc"; % Note: this variable should be string
-% cell_mode = ['sin 2 3 5 l l']; 
-% cell_num = [8,10,5]; 
+% cell_mode = ['sin 2 3 5 l l'];
+% cell_num = [8,10,5];
 % data_cell = LammpsStrCellCoord(cell_mode,cell_num);
 % atom_type = 1;
 % atom_charge = 0;
 % data = LammpsStrGenerate(data_cell,structure,lattice_const,atom_type,atom_charge);
-% 
+%
 % *Example 2*:
 %
 % structure = 'si3n4';
@@ -72,7 +72,7 @@ end
 
 %% Supporting Information
 
-support_str     =   ["bcc","fcc","sc","dc","si3n4","si3n4_ort","graphene","graphene_ort","tip3p","spc"];
+support_str     =   ["bcc","fcc","sc","dc","si3n4","si3n4_ort","graphene","graphene_ort","tip3p","tip3p_hex","spc","spce"];
 support_judge   =   0;
 
 %% Recognizing Struture
@@ -83,7 +83,7 @@ if str_id
     fprintf('\n-------------------------\n')
     fprintf("\nStructure : %s\n",structure)
     try
-        if isa(varargin{3},'float')  
+        if isa(varargin{3},'float')
             fprintf("Lattice constant: %-5.2f\n",varargin{3})
         else
             pbc = varargin{3};
@@ -100,10 +100,12 @@ if support_judge == 0
 end
 
 %% Calling corresponding Function
+
 %{
 func = ['data = LammpsStr',upper(char(support_str(str_id))),'(data_cell,pbc);'];
     eval(func);
 %}
+
 try
     func = ['data = LammpsStr',upper(char(support_str(str_id))),'(data_cell,pbc);'];
     eval(func);

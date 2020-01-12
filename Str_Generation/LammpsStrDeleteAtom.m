@@ -30,6 +30,7 @@ end
 if flag_bond == 1
     data.data_bond(data_atom_selected.bond_selected,:)   =   [];
     data.num_bonds  =   data.num_bonds - data_atom_selected.num_bond_selected;
+    data.data_bond(:,1) = 1 : data.num_bonds;
 end
 
 %% Deleting Angles
@@ -44,6 +45,7 @@ end
 if flag_angle == 1
     data.data_angle(data_atom_selected.angle_selected,:)   =   [];
     data.num_angles  =   data.num_angles - data_atom_selected.num_angle_selected;
+    data.data_angle(:,1) = 1 : data.data_angle;
 end
 
 

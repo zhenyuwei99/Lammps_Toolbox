@@ -1,4 +1,21 @@
-## Unreleased [0.1.1]
+## Unreleased [0.1.2]
+
+## [0.1.1] -01-12-2020
+
+### Added
+
+- **LammpsStrSPCE**
+- **LammpsStrTIP3P_HEX_SI3N4**, build tip3p water molecules with cell vector same as Si3N4
+- **LammpsStrSI3N4_ORT**
+- **LammpsStrAddIons**
+
+### Fixed
+
+- **LammpsStrSelectAtom** will select the center of box as origin point
+
+### Changed
+
+- **LammpsStrSI3N4** won't generated bonds automatically. If bonds are needed, variable 'bond_arg = 1' is needed (will be more time consuming)
 
 ## [0.1.0] -12-31-2019        **:bowtie: Happy New Year!:bowtie:**
 

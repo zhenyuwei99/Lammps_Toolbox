@@ -19,7 +19,7 @@ angle               =   angle / 180 * pi;   % Convert int to rad
 bond_length         =   1.0;             % Unit: Anstrom. https://en.wikipedia.org/wiki/Water_model for more details
 
 atom_type           =   [1,2,1];   
-atom_charge         =   [0.4238,-0.8476,0.4238];      % H: 0.41.   O: -0.82. Unit: e. Write the same time as # of cell, so should be coresponds to the # of atoms in cell;
+atom_charge         =   [0.410,-0.820,0.410];      % H: 0.41.   O: -0.82. Unit: e. Write the same time as # of cell, so should be coresponds to the # of atoms in cell;
 atom_mass           =   [1.00784, 15.9994];    	% H: 1.00784. O: 15.999. Unit: g/mol Only Writ once, don't need to be correspond to each atom in str_mtr;
 atom_name           =   ["H","O"];
 
@@ -123,6 +123,9 @@ num_angle_types =   1;
 % Box Info
 varargout{1}.box_size       =   box_size;
 varargout{1}.box_tilt       =   box_tilt;
+% Cell Info
+varargout{1}.data_cell      =   data_cell;
+varargout{1}.cell_vector    =   cell_vector;
 % Para Info
 varargout{1}.para           =   para;
 % Atom Info

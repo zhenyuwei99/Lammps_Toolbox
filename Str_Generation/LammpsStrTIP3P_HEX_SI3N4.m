@@ -1,6 +1,6 @@
-function [varargout] = LammpsStrTIP3P(varargin)
+function [varargout] = LammpsStrTIP3P_HEX_SI3N4(varargin)
 %% Description
-% function [varargout] = LammpsStrTIP3P(data_cell)
+% function [varargout] = LammpsStrTIP3P_HEX_SI3N4(data_cell)
 %
 % Input:
 %
@@ -18,7 +18,7 @@ angle               =   104.25;
 angle               =   angle / 180 * pi;   % Convert int to rad
 bond_length         =   0.9572;             % Unit: Anstrom. https://en.wikipedia.org/wiki/Water_model for more details
 
-atom_type           =   [1,2,1];   
+atom_type           =   [1,2,1];
 atom_charge         =   [0.41,-0.82,0.41];      % H: 0.41.   O: -0.82. Unit: e. Write the same time as # of cell, so should be coresponds to the # of atoms in cell;
 atom_mass           =   [1.00784, 15.9994];    	% H: 1.00784. O: 15.999. Unit: g/mol Only Writ once, don't need to be correspond to each atom in str_mtr;
 atom_name           =   ["H","O"];
@@ -26,8 +26,8 @@ atom_name           =   ["H","O"];
 lattice_ratio       =   [4,5];
 str_mtr             =   [
     0 0 0                                           %            O (0.5,0.5,0)
-    1/lattice_ratio(1) 1/lattice_ratio(2) 0         %           / \
-    2/lattice_ratio(1) 0 0                          %  (0,0,0) H   H (1,0.5,0)
+    0.1377    0.2000         0                      %           / \
+    0.5        0    0                               %  (0,0,0) H   H (1,0.5,0)
     ];              % Normalized vectors of atom coordinate in cell
 
 cell_vector         =   [
@@ -35,8 +35,9 @@ cell_vector         =   [
                         lattice_ratio(2)*bond_length*cos(angle/2)
                         ( (atom_mass(1)*2 + atom_mass(2)) * data_constant.gm2g ) / (density * lattice_ratio(1)*bond_length*sin(angle/2) * lattice_ratio(2)*bond_length*cos(angle/2))
                         ];
-                    
+
 cell_vector         =   diag(cell_vector);  % Vectors that determining cell size
+cell_vector(2,1)    =   3.7975/6.577463 * cell_vector(2,2);
 
 %% Parameters setting
 
@@ -70,7 +71,7 @@ box_tilt        =   [
     cell_vector(2,1) * data_cell.num_cells_vec(2)
     cell_vector(3,1) * data_cell.num_cells_vec(3)
     cell_vector(3,2) * data_cell.num_cells_vec(3)];  % xy xz yz for box arrangement
-    
+
 
 for cell_now = 1 : data_cell.num_cells
   	for atom = 1 : num_cell_atoms
@@ -100,7 +101,7 @@ for cell_now = 1 : data_cell.num_cells
     data_bond(bond_id,2) = 1;
     data_bond(bond_id,3:4) = [id_now,id_now+1];
 end
-        
+
 num_bonds       =   bond_id;
 num_bond_types  =   1;
 

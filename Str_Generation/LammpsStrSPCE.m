@@ -1,6 +1,6 @@
-function [varargout] = LammpsStrTIP3P(varargin)
+function [varargout] = LammpsStrSPCE(varargin)
 %% Description
-% function [varargout] = LammpsStrTIP3P(data_cell)
+% function [varargout] = LammpsStrSPCE(data_cell)
 %
 % Input:
 %
@@ -14,12 +14,12 @@ data_cell           =   varargin{1};
 %% Struture data
 data_constant       =   LammpsDataConstants;
 density             =   1 / data_constant.cm2an^3;                  % g/A^3
-angle               =   104.25;
+angle               =   109.47;
 angle               =   angle / 180 * pi;   % Convert int to rad
-bond_length         =   0.9572;             % Unit: Anstrom. https://en.wikipedia.org/wiki/Water_model for more details
+bond_length         =   1.0;             % Unit: Anstrom. https://en.wikipedia.org/wiki/Water_model for more details
 
 atom_type           =   [1,2,1];   
-atom_charge         =   [0.41,-0.82,0.41];      % H: 0.41.   O: -0.82. Unit: e. Write the same time as # of cell, so should be coresponds to the # of atoms in cell;
+atom_charge         =   [0.4238,-0.8476,0.4238];      % H: 0.41.   O: -0.82. Unit: e. Write the same time as # of cell, so should be coresponds to the # of atoms in cell;
 atom_mass           =   [1.00784, 15.9994];    	% H: 1.00784. O: 15.999. Unit: g/mol Only Writ once, don't need to be correspond to each atom in str_mtr;
 atom_name           =   ["H","O"];
 
@@ -41,8 +41,8 @@ cell_vector         =   diag(cell_vector);  % Vectors that determining cell size
 %% Parameters setting
 
 % Unit: Kcal/mol
-para.pair_coeff     =   [0.0460	0.4000
-                         0.1521	3.1507];
+para.pair_coeff     =   [0      0
+                         0.1553	3.1660];
 para.bond_coeff     =   [450 bond_length];
 para.angle_coeff    =   [55 angle];
 

@@ -32,15 +32,22 @@ end
 coord                       =   data.data_atom(:,5:7);
 coord_mean                  =   mean(coord,1);
 coord(:,select_arg(2))      =   [];
-coord_mean(select_arg(2)) =   [];
+coord_mean(select_arg(2))   =   [];
 
-for dim = 1 : 2
-    [~,ind] = min(reshape(abs(bsxfun(@minus,coord,coord_mean(dim))),numel(coord),[]));
-    coord_center(dim)   =   coord(ind2sub(size(coord),ind));
+box_size                =   data.box_size;
+
+try
+    box_tilt            =   data.box_tilt;
+    box_size(1,1)       =   box_size(1,1) + min([0,box_tilt(1),box_tilt(2),box_tilt(1) + box_tilt(2)]);
+    box_size(1,2)       =   box_size(1,2) + max([0,box_tilt(1),box_tilt(2),box_tilt(1) + box_tilt(2)]);
+    box_size(2,1)       =   box_size(2,1) + min([0,box_tilt(3)]);
+    box_size(2,2)       =   box_size(2,2) + max([0,box_tile(3)]);
 end
 
+coord_center                    =   (( box_size(:,1) + box_size(:,2) )/2)';
+coord_center(select_arg(2))     =   [];
 
-num_atom_selected           =   0;
+num_atom_selected     	=   0;
 
 for atom = 1 : data.num_atoms
     dist = sqrt((coord(atom,:)-coord_center) * (coord(atom,:)-coord_center)');
@@ -52,7 +59,7 @@ end
 
 %% Finding Postion of Bonds infomation
 
-try 
+try
     data.data_bond;
     flag_bond = 1;
 catch
@@ -78,7 +85,7 @@ end
 
 %% Finding Postion of Angles infomation
 
-try 
+try
     data.data_angle;
     flag_angle = 1;
 catch
