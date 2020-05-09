@@ -6,6 +6,12 @@ function [varargout] = LammpsStrTIP3P(varargin)
 %
 % data_cell     :   coordinate of cell points, created by function
 %                   LammpsStrCellCoord
+%
+% Cell_Vector:
+%
+% 3.0223    0           0
+% 0         2.9383      0
+% 0         0           3.3686
 
 %% Reading Input
 

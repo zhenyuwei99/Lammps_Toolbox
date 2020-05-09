@@ -58,26 +58,19 @@ function [data] = LammpsStrGenerate(varargin)
 data_cell       =   varargin{1};
 structure       =   varargin{2};
 
-try
-    atom_type = varargin{4};
-catch
-    atom_type = 1;
-end
+%% Supporting List
 
-try
-    atom_charge = varargin{5};
-catch
-    atom_charge = 1;
-end
+str_basic       =   ["bcc","fcc","sc","dc"];
+str_crystal     =   ["si3n4","si3n4_ort","sio2","si","graphene","graphene_ort"];
+str_wat         =   ["tip3p","tip3p_hex","spc","spce"];
 
-%% Supporting Information
+str_support     =   [str_basic,str_crystal,str_wat];
 
-support_str     =   ["bcc","fcc","sc","dc","si3n4","si3n4_ort","graphene","graphene_ort","tip3p","tip3p_hex","spc","spce"];
 support_judge   =   0;
 
 %% Recognizing Struture
 
-str_id = find(lower(structure) == support_str);
+str_id = find(lower(structure) == str_support);
 
 if str_id
     fprintf('\n-------------------------\n')
@@ -85,11 +78,14 @@ if str_id
     try
         if isa(varargin{3},'float')
             fprintf("Lattice constant: %-5.2f\n",varargin{3})
+            type    =   1;
         else
-            pbc = varargin{3};
+            pbc     =   varargin{3};
+            type    =   2;
         end
     catch
-        pbc = ['x y z'];
+        pbc     =   ['x y z'];
+        type    =   2;
     end
     support_judge = 1;
 end
@@ -97,6 +93,27 @@ end
 if support_judge == 0
     fprintf("Error, structure is not supported !\n")
     return;
+end
+
+%% Reading Input
+
+if type == 1
+    try
+        atom_type   =   varargin{4};
+    catch
+        atom_type   =   1;
+    end
+    try
+        atom_charge =   varargin{5};
+    catch
+        atom_charge =   1;
+    end 
+else
+    try 
+        bond_arg    =   varargin{4};
+    catch
+        bond_arg    =   0;
+    end
 end
 
 %% Calling corresponding Function
@@ -107,10 +124,10 @@ func = ['data = LammpsStr',upper(char(support_str(str_id))),'(data_cell,pbc);'];
 %}
 
 try
-    func = ['data = LammpsStr',upper(char(support_str(str_id))),'(data_cell,pbc);'];
+    func = ['data = LammpsStr',upper(char(str_support(str_id))),'(data_cell,pbc,bond_arg);'];
     eval(func);
 catch
-    func = ['data = LammpsStr',upper(char(support_str(str_id))),'(data_cell,varargin{3},atom_type,atom_charge);'];
+    func = ['data = LammpsStr',upper(char(str_support(str_id))),'(data_cell,varargin{3},atom_type,atom_charge);'];
     eval(func);
 end
 

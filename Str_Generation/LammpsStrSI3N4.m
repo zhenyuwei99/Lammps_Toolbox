@@ -1,6 +1,6 @@
 function [varargout] = LammpsStrSI3N4(varargin)
 %% Description
-% function [varargout] = LammpsStrSi3N4_ORT(data_cell,pbc,bond_arg,r_cut)
+% function [varargout] = LammpsStrSi3N4(data_cell,pbc,bond_arg,r_cut)
 %
 % Input:
 %
@@ -12,6 +12,12 @@ function [varargout] = LammpsStrSI3N4(varargin)
 % bond_arg      :   arg determins whether bonds will be generated, 
 %                   1: yes; 0: no. Default: not generate
 % r_cut         :   cut off radius for bond recognition. Default: 1.9 A
+%
+% Cell_Vector:
+%
+% 7.595     0           0
+% 3.7975   	6.577463  	0
+% 0         0           2.902
 
 %% Reading Input
 
@@ -19,7 +25,7 @@ data_cell           =   varargin{1};
 pbc                 =   varargin{2};
 
 try 
-    bond_arg    =   varargin{3}
+    bond_arg    =   varargin{3};
 catch
     bond_arg    =   0;
 end
@@ -33,29 +39,29 @@ end
 %% Struture data
 
 str_mtr             =   [
-    -0.0977580565637542,0.195516113127508,0;
-    0.0588368288671674,0.307869462739661,0;
-    -0.0535176961032620,0.576818144016926,0;
-    0.327654573699065,0.151274131074550,0;
-    0.403949967083608,0,0.500000000000000;
-    0.438645801493259,0.309541840068124,0;
-    0.749567567747191,0.272293435934189,0.500000000000000;
-    0.0180020380857845,0.645233580181295,0.500000000000000;
-    0.129048914298138,0.803653323477456,0.500000000000000;
-    0.510352849669919,0.378109310535080,0.500000000000000;
-    0.397866659130036,0.647057991812345,0.500000000000000;
-    0.554461544560957,0.759411341424498,0.500000000000000;
-    -0.291760564557441,0.683850293038517,0;
-    0.0514815980747357,0.957207969090818,0
-    ];              % Normalized vectors of atom coordinate in cell
-                    
+    -0.0977580565637542 0.195516113127508   0
+    0.0588368288671674  0.307869462739661   0
+    -0.0535176961032620 0.576818144016926   0
+    0.327654573699065   0.151274131074550   0
+    0.403949967083608   0                   0.500000000000000
+    0.438645801493259   0.309541840068124   0
+    0.749567567747191   0.272293435934189   0.500000000000000
+    0.0180020380857845  0.645233580181295   0.500000000000000
+    0.129048914298138   0.803653323477456   0.500000000000000
+    0.510352849669919   0.378109310535080   0.500000000000000
+    0.397866659130036   0.647057991812345   0.500000000000000
+    0.554461544560957   0.759411341424498   0.500000000000000
+    -0.291760564557441  0.683850293038517   0
+    0.0514815980747357  0.957207969090818   0
+    ];                      % Normalized vectors of atom coordinate in cell
+
 cell_vector         =   [
                         7.595       0           0
                         3.7975      6.577463    0
                         0           0           2.902;
                         ]; % Vectors that determining cell size
 
-atom_type           =   [2;1;1;2;1;2;1;1;2;1;2;1;1;2];   
+atom_type           =   [2;1;2;2;1;1;1;1;2;2;1;2;1;1];   
 atom_charge         =   1.34925 .* atom_type - 1.9275;      % Si: 0.7710.   N: -0.57825. Unit: e
 atom_mass           =   [14.0067 28.085501];                % N: 14.0067. Si: 28.085501. Unit: g/mol
 atom_name           =   ["N","Si"];
@@ -151,6 +157,8 @@ varargout{1}.atom_mass      =   atom_mass;
 varargout{1}.atom_name      =   atom_name;
 varargout{1}.num_atom_types =   num_atom_types;
 % Bond Info
-varargout{1}.data_bond      =   data_bond;
-varargout{1}.num_bonds      =   num_bonds;
-varargout{1}.num_bond_types =   num_bond_types;
+try
+    varargout{1}.data_bond      =   data_bond;
+    varargout{1}.num_bonds      =   num_bonds;
+    varargout{1}.num_bond_types =   num_bond_types;
+end

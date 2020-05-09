@@ -1,14 +1,16 @@
-function [varargout]    =   LammpsDataReadDump(dump_name,dump_prop,dump_col,t_sim)
+function [varargout]    =   LammpsDataReadDump(varargin)
 
 %% Description
 % Command:
-% [varargout]    =   LammpsDataReadDump(dump_name,dump_prop,dump_col,t_sim)
+% [varargout]    =   LammpsDataReadDump(dump_name,dump_prop,dump_col,t_sim, mode=0)
 %
 % *Input*:
 % dump_name: name of dump file
 % dump_prop: String of properties in the dump file
 % dump_col: The first column corresponds to each properties in dump_type
 % t_sim: simulation time. Unit: ns
+% mode: determine whether function will separtate information of different
+% atoms
 %
 % *Example*:
 % dump_prop = ['id type coord vel'];
@@ -22,6 +24,19 @@ function [varargout]    =   LammpsDataReadDump(dump_name,dump_prop,dump_col,t_si
 % http://web.ics.purdue.edu/~asubrama/pages/Research_Main.htm
 % School of Aeronautics and Astronautics
 % Purdue University, West Lafayette, IN - 47907, USA.
+
+%% Reading Input
+
+dump_name       =   varargin{1};
+dump_prop       =   varargin{2};
+dump_col        =   varargin{3};
+t_sim           =   varargin{4};
+
+try
+    mode = varargin{5};
+catch
+    mode = 0;
+end
 
 %% Reading Dump File
 
@@ -94,27 +109,31 @@ end
 
 %% Judging Atom type
 
-for i = 1 : length(dump_col)
-    if dump_prop{i} == "type"
-        col_type = dump_col(i);
-        break
+if mode == 1
+    for i = 1 : length(dump_col)
+        if dump_prop{i} == "type"
+            col_type = dump_col(i);
+            break
+        end
     end
-end
 
-id_type                 =   unique(squeeze(data.atom_data(:,col_type,1)));
-num_types               =   length(id_type);
+    id_type                 =   unique(squeeze(data.atom_data(:,col_type,1)));
+    num_types               =   length(id_type);
 
-if num_types == 1
-    mode_output             =   1;
+    if num_types == 1
+        mode_output             =   1;
+    else
+        mode_output             =   2;
+        for type = 1 : num_types
+            command = ['num_atom_',num2str(id_type(type)),'= sum( squeeze(data.atom_data(:,col_type,1)) == ' , num2str(id_type(type)),' );'];
+            eval(command);
+            command = ['data_atom_',num2str(id_type(type)),'= data.atom_data(find(squeeze(data.atom_data(:,col_type,1))==',num2str(id_type(type)),'),:,:);'];
+            eval(command);
+        end
+    end   
 else
-    mode_output             =   2;
-    for type = 1 : num_types
-        command = ['num_atom_',num2str(id_type(type)),'= sum( squeeze(data.atom_data(:,col_type,1)) == ' , num2str(id_type(type)),' );'];
-        eval(command);
-        command = ['data_atom_',num2str(id_type(type)),'= data.atom_data(find(squeeze(data.atom_data(:,col_type,1))==',num2str(id_type(type)),'),:,:);'];
-        eval(command);
-    end
-end     
+    mode_output = 1;
+end
 
 
 %% -----------------------Output-----------------------

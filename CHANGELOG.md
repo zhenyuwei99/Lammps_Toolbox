@@ -1,5 +1,10 @@
 ## Unreleased [0.1.2]
 
+### Added
+
+- **LammpsStrSI**
+- **LammpsStrSIO2**
+
 ## [0.1.1] -01-12-2020
 
 ### Added
